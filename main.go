@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	. "github.com/bilibili-service/lib"
+	. "github.com/whiteblue/bilibili-service/lib"
 	"strings"
 	"net/url"
 )
