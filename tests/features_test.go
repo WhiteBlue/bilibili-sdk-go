@@ -30,8 +30,8 @@ func TestGetVideo(t *testing.T) {
 	if err != nil {
 		t.Fatalf(err.Error())
 	}
-	for sName, array := range w.videos {
-		video := array[rand.Intn(9)]
-
-	}
+//	for sName, array := range w.videos {
+//		video := array[rand.Intn(9)]
+//
+//	}
 }
