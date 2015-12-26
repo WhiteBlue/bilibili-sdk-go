@@ -1,5 +1,10 @@
-FROM daocloud.io/golang:onbuild
+FROM daocloud.io/golang:me
+
+RUN go get github.com/gin-gonic/gin
+RUN go get github.com/bitly/go-simplejson
 
 ENV VIRTUAL_HOST api.shiroblue.cn
 
 EXPOSE 8080
+
+CMD ["app"]

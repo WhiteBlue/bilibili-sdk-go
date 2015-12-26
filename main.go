@@ -2,7 +2,7 @@ package main
 
 import (
 	. "./ext"
-	"./gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 
