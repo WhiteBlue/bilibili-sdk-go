@@ -1,10 +1,8 @@
 package main
 
 import (
-	. "github.com/bilibili-service/ext"
 	"github.com/gin-gonic/gin"
 )
-
 
 type SearchForm struct {
 	content    string `form:"content" json:"content" binding:"required"`
