@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "./ext"
+	. "github.com/bilibili-service/ext"
 	"github.com/gin-gonic/gin"
 )
 
