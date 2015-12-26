@@ -6,7 +6,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"net/http"
-	"github.com/bitly/go-simplejson"
+	".././bitly/go-simplejson"
 	"strconv"
 	"errors"
 )
