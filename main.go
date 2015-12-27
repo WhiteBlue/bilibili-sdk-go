@@ -109,7 +109,7 @@ func main() {
 
 	//专题页面(根据title)
 	r.GET("/spinfo", func(c *gin.Context) {
-		title := c.Param("title")
+		title := c.Query("title")
 		if strings.EqualFold(title, "") {
 			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", "title is nil..."))
 		}
