@@ -5,6 +5,7 @@ import (
 	"errors"
 	j "encoding/json"
 	"strconv"
+	"net/url"
 )
 
 //取得新番信息
@@ -202,6 +203,7 @@ func (this *RClient) GetSpInfo(spid string) (map[string]interface{}, error) {
 
 
 func (this *RClient) GetSPByName(name string) (map[string]interface{}, error) {
+	name = strings.Replace(url.QueryEscape(name), "+", "%20", -1)
 	params := map[string][]string{
 		"title":{name},
 	}

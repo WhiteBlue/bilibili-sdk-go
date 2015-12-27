@@ -5,6 +5,7 @@ import (
 	. "github.com/whiteblue/bilibili-service/lib"
 	"strings"
 	"net/url"
+	"encoding/base64"
 )
 
 
@@ -115,8 +116,10 @@ func main() {
 
 
 	//专题页面(根据title)
-	r.GET("/spinfo", func(c *gin.Context) {
-		title := c.Query("title")
+	r.GET("/spinfo_name/:title", func(c *gin.Context) {
+		title := c.Param("title")
+		raw, _ := base64.StdEncoding.DecodeString(title)
+		title = string(raw)
 		if strings.EqualFold(title, "") {
 			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", "title is nil..."))
 			return
