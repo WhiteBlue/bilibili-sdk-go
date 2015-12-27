@@ -11,7 +11,7 @@ import (
 func main() {
 	client := NewBiliClient()
 
-	gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
@@ -23,6 +23,7 @@ func main() {
 		list, err := client.GetIndex()
 		if err != nil {
 			c.JSON(500, MakeFailedJsonMap("SERVER_ERROR", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -33,6 +34,7 @@ func main() {
 		list, err := client.GetVideoInfo(aid)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -45,6 +47,7 @@ func main() {
 		list, err := client.GetVideoMp4(cid, quailty)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -57,6 +60,7 @@ func main() {
 		list, err := client.GetVideoFlv(cid, quailty)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -72,6 +76,7 @@ func main() {
 			list, err := client.GetSearch(content, page, count)
 			if err != nil {
 				c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+				return
 			}
 			c.JSON(200, list)
 		}else {
@@ -89,6 +94,7 @@ func main() {
 			list, err := client.GetSortInfo(tid, page, count, order)
 			if err != nil {
 				c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+				return
 			}
 			c.JSON(200, list)
 		}else {
@@ -102,6 +108,7 @@ func main() {
 		list, err := client.GetSpInfo(spid)
 		if err != nil {
 			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -112,10 +119,12 @@ func main() {
 		title := c.Query("title")
 		if strings.EqualFold(title, "") {
 			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", "title is nil..."))
+			return
 		}
 		list, err := client.GetSPByName(title)
 		if err != nil {
 			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -128,6 +137,7 @@ func main() {
 		list, err := client.GetSpVideos(spid, isBangumi)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("SP_NOT_FOUND", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})
@@ -139,6 +149,7 @@ func main() {
 		list, err := client.GetBangumi(btype)
 		if err != nil {
 			c.JSON(500, MakeFailedJsonMap("SERVER_ERROR", err.Error()))
+			return
 		}
 		c.JSON(200, list)
 	})

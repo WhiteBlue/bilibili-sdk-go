@@ -5,7 +5,6 @@ import (
 	"errors"
 	j "encoding/json"
 	"strconv"
-	"net/url"
 )
 
 //取得新番信息
