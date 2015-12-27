@@ -8,7 +8,7 @@ import (
 )
 
 //取得新番信息
-func (this *RClient) GetBangumi(btype string) (map[int][]interface{}, error) {
+func (this *RClient) GetBangumi(btype string) (map[string][]interface{}, error) {
 	params := map[string][]string{
 		"_device":{"iphone"},
 		"btype":{btype},
@@ -24,7 +24,7 @@ func (this *RClient) GetBangumi(btype string) (map[int][]interface{}, error) {
 		return nil, err
 	}
 
-	returnMap := make(map[int][]interface{}, 8)
+	returnMap := make(map[string][]interface{}, 8)
 
 	if list, ok := rMap["list"].([]interface{}); ok {
 		for _, obj := range list {
@@ -34,13 +34,14 @@ func (this *RClient) GetBangumi(btype string) (map[int][]interface{}, error) {
 			if weekday < 0 {
 				weekday = -1
 			}
-			if dayList, ok := returnMap[weekday]; ok {
+			day := strconv.Itoa(weekday)
+			if dayList, ok := returnMap[day]; ok {
 				dayList = append(dayList, innerMap)
-				returnMap[weekday] = dayList
+				returnMap[day] = dayList
 			}else {
 				dayList = make([]interface{}, 0, 30)
 				dayList = append(dayList, innerMap)
-				returnMap[weekday] = dayList
+				returnMap[day] = dayList
 			}
 		}
 	}
@@ -112,7 +113,7 @@ func (this *RClient) GetVideoMp4(cid string, quality string) (map[string]interfa
 		rMap["url"] = videoObj["url"]
 		rMap["size"] = videoObj["size"]
 		rMap["backup"] = videoObj["backup_url"]
-		rMap["accept"] = videoObj["accept_format"]
+		rMap["accept"] = json.Get("accept_format").MustString()
 		return rMap, nil
 	}else {
 		return nil, errors.New("API return error")

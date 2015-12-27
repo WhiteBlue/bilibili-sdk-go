@@ -3,6 +3,7 @@ package tests
 import (
 	"testing"
 	"github.com/whiteblue/bilibili-service/lib"
+	"fmt"
 )
 
 
@@ -28,5 +29,10 @@ func TestIndex(t *testing.T) {
 func TestGetVideo(t *testing.T) {
 	client := lib.NewBiliClient()
 
-	client.GetBangumi("2")
+	back, err := client.GetBangumi("2")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(back)
 }
