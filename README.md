@@ -265,10 +265,14 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 ---
 例如番剧专题
 
-* URL: /spinfo/ { spid }
+* URL: 
+    * /spinfo/ { spid } 
+    * /spinfo   (当没有spid时可用"title"参数代替请求)
 * 请求方式: GET
 
 参数:
+    
+    title       [str]      专题标题(可选)
 
 
 成功返回:

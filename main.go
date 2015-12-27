@@ -107,6 +107,20 @@ func main() {
 	})
 
 
+	//专题页面(根据title)
+	r.GET("/spinfo", func(c *gin.Context) {
+		title := c.Param("title")
+		if strings.EqualFold(title, "") {
+			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", "title is nil..."))
+		}
+		list, err := client.GetSPByName(title)
+		if err != nil {
+			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+		}
+		c.JSON(200, list)
+	})
+
+
 	//专题视频
 	r.GET("/spvideos/:spid", func(c *gin.Context) {
 		spid := c.Param("spid")
