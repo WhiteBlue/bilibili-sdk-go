@@ -2,7 +2,7 @@ package tests
 
 import (
 	"testing"
-	"math/rand"
+	"github.com/whiteblue/bilibili-service/lib"
 )
 
 
@@ -26,12 +26,7 @@ func TestIndex(t *testing.T) {
 
 
 func TestGetVideo(t *testing.T) {
-	err := w.RefreshVideos()
-	if err != nil {
-		t.Fatalf(err.Error())
-	}
-//	for sName, array := range w.videos {
-//		video := array[rand.Intn(9)]
-//
-//	}
+	client := lib.NewBiliClient()
+
+	client.GetBangumi("2")
 }

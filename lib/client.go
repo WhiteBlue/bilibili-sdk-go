@@ -3,10 +3,12 @@ package lib
 import (
 	"strings"
 	"errors"
+	j "encoding/json"
+	"strconv"
 )
 
 //取得新番信息
-func (this *RClient) GetBangumi(btype string) (map[string]interface{}, error) {
+func (this *RClient) GetBangumi(btype string) (map[int][]interface{}, error) {
 	params := map[string][]string{
 		"_device":{"iphone"},
 		"btype":{btype},
@@ -18,10 +20,31 @@ func (this *RClient) GetBangumi(btype string) (map[string]interface{}, error) {
 		return nil, err
 	}
 	rMap, err := json.Map()
-	if err == nil {
-		return rMap, nil
+	if err != nil {
+		return nil, err
 	}
-	return rMap, nil
+
+	returnMap := make(map[int][]interface{}, 8)
+
+	if list, ok := rMap["list"].([]interface{}); ok {
+		for _, obj := range list {
+			innerMap, _ := obj.(map[string]interface{})
+			weekdayObj, _ := (innerMap["weekday"]).(j.Number)
+			weekday, _ := strconv.Atoi(weekdayObj.String())
+			if weekday < 0 {
+				weekday = -1
+			}
+			if dayList, ok := returnMap[weekday]; ok {
+				dayList = append(dayList, innerMap)
+				returnMap[weekday] = dayList
+			}else {
+				dayList = make([]interface{}, 0, 30)
+				dayList = append(dayList, innerMap)
+				returnMap[weekday] = dayList
+			}
+		}
+	}
+	return returnMap, nil
 }
 
 //取得首页内容
@@ -89,6 +112,7 @@ func (this *RClient) GetVideoMp4(cid string, quality string) (map[string]interfa
 		rMap["url"] = videoObj["url"]
 		rMap["size"] = videoObj["size"]
 		rMap["backup"] = videoObj["backup_url"]
+		rMap["accept"] = videoObj["accept_format"]
 		return rMap, nil
 	}else {
 		return nil, errors.New("API return error")
