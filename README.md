@@ -89,6 +89,7 @@ URL : http://bilibili-service.daoapp.io
 
 	page				[int]  页码
 	count              	[int]  分页容量
+	order               [str]  排序方式(new,hot)
 
 
 成功返回:

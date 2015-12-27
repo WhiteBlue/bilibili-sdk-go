@@ -108,6 +108,7 @@ func (this *RClient) doPost(uri string, values map[string][]string) (*simplejson
 
 //API返回异常判断
 func judgeError(resp *http.Response, err error) (*simplejson.Json, error) {
+	defer resp.Body.Close()
 	if err != nil {
 		return nil, err
 	}
