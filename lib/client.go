@@ -125,7 +125,6 @@ func (this *RClient) GetVideoMp4(cid string, quality string) (map[string]interfa
 func (this *RClient) GetVideoFlv(cid string, quality string) (map[string]interface{}, error) {
 	params := map[string][]string{
 		"cid":{cid},
-		"quality":{quality},
 		"otype":{"json"},
 		"type":{"flv"},
 	}

@@ -57,8 +57,7 @@ func main() {
 	//flv视频源
 	r.GET("/videoflv/:cid", func(c *gin.Context) {
 		cid := c.Param("cid")
-		quailty := c.DefaultQuery("quailty", "1")
-		list, err := client.GetVideoFlv(cid, quailty)
+		list, err := client.GetVideoFlv(cid)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
 			return
