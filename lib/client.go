@@ -152,16 +152,30 @@ func (this *RClient) GetSearch(kWord string, page string, count string) (map[str
 		"keyword":{kWord},
 		"page":{page},
 		"pagesize":{count},
+		"device":{"phone"},
+		"main_ver":{"v3"},
+		"order":{"totalrank"},
+		"platform":{"ios"},
+		"search_type":{"all"},
+		"source_type":{"0"},
 	}
 	json, err := this.doGet("http://api.bilibili.com/search?" + DoEncrypt(params))
 	if err != nil {
 		return nil, err
 	}
-	rMap, err := json.Map()
-	if err != nil {
-		return nil, err
+
+	returnMap := make(map[string]interface{}, 5)
+
+	if json.Get("code").MustInt() == 0 {
+		returnMap["page"] = json.Get("page")
+		returnMap["pagesize"] = json.Get("pagesize")
+		returnMap["page_info"] = json.Get("pageinfo")
+		returnMap["result"] = json.Get("result")
+
+		return returnMap, nil;
+	}else {
+		return nil, errors.New("API return code : " + strconv.Itoa(json.Get("code").MustInt()))
 	}
-	return rMap, nil
 }
 
 
@@ -232,6 +246,24 @@ func (this *RClient) GetSortInfo(tid string, page string, count string, order st
 		"type":{"json"},
 	}
 	json, err := this.doGet("http://api.bilibili.com/list?" + DoEncrypt(params))
+	if err != nil {
+		return nil, err
+	}
+	rMap, err := json.Map()
+	if err == nil {
+		return rMap, nil
+	}
+	return nil, err
+}
+
+
+func (this *RClient) GetIndexInfo() (map[string]interface{}, error) {
+	params := map[string][]string{
+		"platform":{"ios"},
+		"build":{"2310"},
+		"device":{"phone"},
+	}
+	json, err := this.doGet("http://app.bilibili.com/api/region_ios/13.json?" + DoEncrypt(params))
 	if err != nil {
 		return nil, err
 	}

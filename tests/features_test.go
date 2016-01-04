@@ -27,12 +27,10 @@ func TestIndex(t *testing.T) {
 
 
 func TestGetVideo(t *testing.T) {
-	client := lib.NewBiliClient()
-
-	back, err := client.GetBangumi("2")
-
+	r := lib.NewBiliClient()
+	back, err := r.GetVideoMp4("5472916","2")
 	if err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 	fmt.Println(back)
 }

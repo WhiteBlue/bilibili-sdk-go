@@ -15,6 +15,11 @@ func main() {
 	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
+	r.Use(func(c *gin.Context) {
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type")
+	})
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message":"BiliBili-Html5-v2.0"})
 	})
@@ -42,10 +47,10 @@ func main() {
 
 
 	//mp4视频源
-	r.GET("/video/:cid", func(c *gin.Context) {
+	r.GET("/video/:cid/:quality", func(c *gin.Context) {
 		cid := c.Param("cid")
-		quailty := c.DefaultQuery("quailty", "1")
-		list, err := client.GetVideoMp4(cid, quailty)
+		quality := c.Param("quality")
+		list, err := client.GetVideoMp4(cid, quality)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
 			return
@@ -66,12 +71,11 @@ func main() {
 	})
 
 	//搜索
-	r.GET("/search", func(c *gin.Context) {
-		content := c.Query("content")
-		//rawurlencode编码
+	r.POST("/search", func(c *gin.Context) {
+		content := c.PostForm("content")
 		content = strings.Replace(url.QueryEscape(content), "+", "%20", -1)
-		page := c.DefaultQuery("page", "1")
-		count := c.DefaultQuery("count", "20")
+		page := c.DefaultPostForm("page", "1")
+		count := c.DefaultPostForm("count", "20")
 		if !strings.EqualFold(content, "")  && IsNumber(page) && IsNumber(count) {
 			list, err := client.GetSearch(content, page, count)
 			if err != nil {
@@ -114,24 +118,6 @@ func main() {
 	})
 
 
-	//专题页面(根据title)
-	r.GET("/spinfo_name/:title", func(c *gin.Context) {
-		title := c.Param("title")
-		raw, _ := base64.StdEncoding.DecodeString(title)
-		title = string(raw)
-		if strings.EqualFold(title, "") {
-			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", "title is nil..."))
-			return
-		}
-		list, err := client.GetSPByName(title)
-		if err != nil {
-			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
-			return
-		}
-		c.JSON(200, list)
-	})
-
-
 	//专题视频
 	r.GET("/spvideos/:spid", func(c *gin.Context) {
 		spid := c.Param("spid")
@@ -149,6 +135,16 @@ func main() {
 	r.GET("/bangumi", func(c *gin.Context) {
 		btype := c.DefaultQuery("btype", "2")
 		list, err := client.GetBangumi(btype)
+		if err != nil {
+			c.JSON(500, MakeFailedJsonMap("SERVER_ERROR", err.Error()))
+			return
+		}
+		c.JSON(200, list)
+	})
+
+
+	r.GET("/indexinfo", func(c *gin.Context) {
+		list, err := client.GetIndexInfo()
 		if err != nil {
 			c.JSON(500, MakeFailedJsonMap("SERVER_ERROR", err.Error()))
 			return

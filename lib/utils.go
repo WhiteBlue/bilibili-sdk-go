@@ -39,7 +39,6 @@ func NewBiliClient() *RClient {
 		}}
 }
 
-
 func MakeFailedJsonMap(code string, message string) map[string]string {
 	return map[string]string{
 		"code":code,
