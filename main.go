@@ -5,14 +5,13 @@ import (
 	. "github.com/whiteblue/bilibili-service/lib"
 	"strings"
 	"net/url"
-	"encoding/base64"
 )
 
 
 func main() {
 	client := NewBiliClient()
 
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
 	r.Use(func(c *gin.Context) {
