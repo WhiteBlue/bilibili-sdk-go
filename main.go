@@ -78,8 +78,9 @@ func main() {
 		page := c.DefaultPostForm("page", "1")
 		count := c.DefaultPostForm("count", "20")
 		order := c.DefaultPostForm("order", "totalrank");
+		searchType := c.DefaultPostForm("type", "all");
 		if !strings.EqualFold(content, "")  && IsNumber(page) && IsNumber(count) {
-			list, err := client.GetSearch(content, page, count,order)
+			list, err := client.GetSearch(content, page, count, order, searchType)
 			if err != nil {
 				c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
 				return

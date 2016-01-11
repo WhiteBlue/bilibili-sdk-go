@@ -145,16 +145,16 @@ func (this *RClient) GetVideoFlv(cid string) (map[string]interface{}, error) {
 
 
 //搜索功能
-func (this *RClient) GetSearch(kWord string, page string, count string, order string) (map[string]interface{}, error) {
+func (this *RClient) GetSearch(kWord string, page string, count string, order string, searchType string) (map[string]interface{}, error) {
 	params := map[string][]string{
 		"keyword":{kWord},
 		"page":{page},
 		"pagesize":{count},
 		"device":{"phone"},
 		"main_ver":{"v3"},
-		"order":{"totalrank"},
+		"order":{order},
 		"platform":{"ios"},
-		"search_type":{"all"},
+		"search_type":{searchType},
 		"source_type":{"0"},
 	}
 	json, err := this.doGet("http://api.bilibili.com/search?" + DoEncrypt(params))
