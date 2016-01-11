@@ -24,7 +24,12 @@ type RClient struct {
 }
 
 func NewBiliClient() *RClient {
-	return &RClient{http.DefaultClient,
+
+	transport := http.Transport{
+		DisableKeepAlives: true,
+	}
+
+	return &RClient{&http.Client{Transport:&transport},
 		map[string]string{
 			"动画":"type1",
 			"番剧":"type13",

@@ -137,8 +137,6 @@ func (this *RClient) GetVideoFlv(cid string) (map[string]interface{}, error) {
 		video := json.Get("durl").MustArray()[0]
 		videoObj, _ := video.(map[string]interface{})
 		rMap["url"] = videoObj["url"]
-		rMap["size"] = videoObj["size"]
-		rMap["backup"] = videoObj["backup_url"]
 		return rMap, nil
 	}else {
 		return nil, errors.New("API return error")
@@ -147,7 +145,7 @@ func (this *RClient) GetVideoFlv(cid string) (map[string]interface{}, error) {
 
 
 //搜索功能
-func (this *RClient) GetSearch(kWord string, page string, count string) (map[string]interface{}, error) {
+func (this *RClient) GetSearch(kWord string, page string, count string, order string) (map[string]interface{}, error) {
 	params := map[string][]string{
 		"keyword":{kWord},
 		"page":{page},
