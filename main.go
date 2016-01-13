@@ -51,8 +51,6 @@ func main() {
 		quality := c.Param("quality")
 		list, err := client.GetVideoMp4(cid, quality)
 		if err != nil {
-
-
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
 			return
 		}
@@ -79,6 +77,7 @@ func main() {
 		count := c.DefaultPostForm("count", "20")
 		order := c.DefaultPostForm("order", "totalrank");
 		searchType := c.DefaultPostForm("type", "all");
+
 		if !strings.EqualFold(content, "")  && IsNumber(page) && IsNumber(count) {
 			list, err := client.GetSearch(content, page, count, order, searchType)
 			if err != nil {

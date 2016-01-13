@@ -1,5 +1,6 @@
 # bilibili-service
-B站API的Golang版本，提供视频源解析，排行获取等常用接口，[BiliBili-Html5](http://www.shiroblue.cn)的一部分
+B站API的Golang版本，提供视频源解析，排行获取等常用接口，基于IOS版APP接口  
+[BiliBili-Html5](http://www.shiroblue.cn)的一部分
 
 ## API地址
 ===
@@ -198,7 +199,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 参数:
 
-	quailty				[int]  清晰度(1~3，根据视频有不同)
+	quailty				[int]  清晰度(1~3，根据视频有不同)[仅供mp4源使用]
 
 
 成功返回:
