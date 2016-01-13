@@ -12,7 +12,7 @@ URL : http://bilibili-service.daoapp.io
 ## 接口文档
 ===
 
-* 数据格式: applation/json
+* 数据格式: application/json
 * 请求方式: post/get
 
 
