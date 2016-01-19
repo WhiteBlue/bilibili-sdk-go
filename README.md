@@ -1,5 +1,5 @@
 # bilibili-service
-B站API的Golang版本，提供视频源解析，排行获取等常用接口，基于IOS版APP接口  
+B站API的Golang版本，提供视频源解析，排行获取等常用接口，基于iOS版APP接口  
 [BiliBili-Html5](http://www.shiroblue.cn)的一部分
 
 ## API地址
@@ -32,6 +32,17 @@ URL : http://bilibili-service.daoapp.io
 	}
 
 
+#### 分类(sort)约定:
+        '1' => '动画',
+        '3' => '音乐',
+        '4' => '游戏',
+        '5' => '娱乐',
+        '11' => '电视剧'
+        '13' => '番剧',
+        '23' => '电影',
+        '36' => '科技',
+        '119' => '鬼畜',
+        '129' => '舞蹈',
 
 
 ### 1. 首页内容获取
@@ -40,8 +51,9 @@ URL : http://bilibili-service.daoapp.io
 
 * URL: /topinfo
 * 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/topinfo
 
-参数:
+参数: 无
 
 
 成功返回:
@@ -85,6 +97,7 @@ URL : http://bilibili-service.daoapp.io
 * URL: /sort/ { tid }
 	* tid为分类id(例如“动画”=>13)
 * 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/sort/13
 
 参数:
 
@@ -97,32 +110,61 @@ URL : http://bilibili-service.daoapp.io
 
 ```
 {
-  "code": 0,
-  "list": {
-    "0": {
-      "aid": "3448965",
-      "author": "哔哩哔哩番剧",
-      "coins": 9094,
-      "comment": 57078,
-      "copyright": "Copy",
-      "create": "2015-12-25 19:12",
-      "credit": 0,
-      "description": "#13 福神的传说（完）",
-      "duration": "24:14",
-      "favorites": 1177,
-      "mid": 928123,
-      "pic": "http://i2.hdslb.com/320_200/video/83/8389492cdceb85cdade3bc43c17bb699.jpg",
-      "play": 677010,
-      "review": 4300,
-      "subtitle": "",
-      "title": "【10月/完结】野良神 ARAGOTO 第二季 13【独家正版】",
-      "typeid": 33,
-      "typename": "连载动画",
-      "video_review": 57078
+    "code": 0,
+    "list": {
+        "0": {
+            "aid": "3580782",
+            "author": "哔哩哔哩番剧",
+            "badgepay": false,
+            "coins": 5581,
+            "comment": 46962,
+            "copyright": "Copy",
+            "create": "2016-01-14 19:09",
+            "credit": 0,
+            "description": "#02 枫的时间 ",
+            "duration": "23:17",
+            "favorites": 4618,
+            "mid": 928123,
+            "pic": "http://i1.hdslb.com/320_200/video/9a/9a886536a807d717fe9bfe9bd811ed5b.jpg",
+            "play": 978653,
+            "review": 4629,
+            "subtitle": "",
+            "title": "【1月】极速老师 第二季 02【独家正版】",
+            "typeid": 33,
+            "typename": "连载动画",
+            "video_review": 46962
+        },
+        "1": {
+            "aid": "3580514",
+            "author": "TV-TOKYO",
+            "badgepay": false,
+            "coins": 4575,
+            "comment": 19437,
+            "copyright": "Copy",
+            "create": "2016-01-14 18:31",
+            "credit": 0,
+            "description": "#664 自来也忍法帐 鸣人豪杰物语「叛逃」【应官方要求，本片字幕全网统一为优土译制版本。】",
+            "duration": "23:24",
+            "favorites": 4051,
+            "mid": 21453565,
+            "pic": "http://i0.hdslb.com/320_200/video/c8/c89497a44e4d05e812c2c61066d42484.jpg",
+            "play": 555915,
+            "review": 6915,
+            "subtitle": "",
+            "title": "【1月】火影忍者 疾风传 664",
+            "typeid": 33,
+            "typename": "连载动画",
+            "video_review": 19437
+        },
+        ...
+        "num": "665"
     },
-    ...
-    }
+    "name": "番剧",
+    "num": 665,
+    "pages": 34,
+    "results": 665
 }
+
 ```
 
 ### 3. 视频信息获取
@@ -132,58 +174,55 @@ URL : http://bilibili-service.daoapp.io
 * URL: /view/ { aid }
  	* aid => av号
 * 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/view/3580782
 
-参数:
+参数: 无
 
 
 成功返回:
 
 ```
 {
-  "allow_bp": 1,
-  "allow_download": 1,
-  "allow_feed": 0,
-  "author": "哔哩哔哩番剧",
-  "bangumi": {
-    "allow_download": "1",
-    "bangumi_id": "418",
-    "season_id": "2725",
-    "title": "K RETURN OF KINGS（第二季）"
-  },
-  "coins": "4697",
-  "created": 1451068200,
-  "created_at": "2015-12-26 02:30",
-  "credit": "0",
-  "description": "#13 Kings ",
-  "face": "http://i0.hdslb.com/user/9281/928123/myface.png",
-  "favorites": "1250",
-  "instant_server": "chat.bilibili.com",
-  "list": {
-    "0": {
-      "cid": 5472643,
-      "has_alias": false,
-      "page": 1,
-      "part": "",
-      "type": "vupload",
-      "vid": "vupload_5472643"
-    }
-  },
-  "mid": "928123",
-  "pages": 1,
-  "pic": "http://i2.hdslb.com/video/2d/2db3aaaba87c598e2166a8def95a3dfe.jpg",
-  "play": "494592",
-  "review": "5554",
-  "season_episode": "13",
-  "season_id": 2039,
-  "season_index": "13",
-  "sp_title": "「K」",
-  "spid": 5188,
-  "src": "c",
-  "tag": "BILIBILI独家正版,王的回归,GORA×GOHANDS,K 回归的王权者,K 第二季,K RETURN OF KINGS,K,TV动画,BILIBILI正",
-  "tid": 33,
-  "title": "【10月/完结】K RETURN OF KINGS 第二季 13【独家正版】",
-  "typename": "连载动画",
-  "video_review": "49007"
+    "allow_bp": 1,
+    "allow_download": 1,
+    "allow_feed": 0,
+    "author": "哔哩哔哩番剧",
+    "bangumi": {
+        "allow_download": "1",
+        "bangumi_id": "1033",
+        "season_id": "3271",
+        "title": "极速老师"
+    },
+    "coins": "5584",
+    "created": 1452804600,
+    "created_at": "2016-01-15 04:50",
+    "credit": "0",
+    "description": "#02 枫的时间 ",
+    "face": "http://i0.hdslb.com/user/9281/928123/myface.png",
+    "favorites": "4621",
+    "instant_server": "chat.bilibili.com",
+    "list": {
+        "0": {
+            "cid": 5710510,
+            "has_alias": false,
+            "page": 1,
+            "part": "",
+            "type": "vupload",
+            "vid": "vupload_5710510"
+        }
+    },
+    "mid": "928123",
+    "pages": 1,
+    "pic": "http://i0.hdslb.com/video/9a/9a886536a807d717fe9bfe9bd811ed5b.jpg",
+    "play": "979055",
+    "review": "4630",
+    "spid": null,
+    "src": "c",
+    "tag": "TV动画,洲崎绫,田中美海,冈本信彦,伊藤静,BILIBILI正版,黄老师,福山润,极速老师 第二季",
+    "tid": 33,
+    "title": "【1月】极速老师 第二季 02【独家正版】",
+    "typename": "连载动画",
+    "video_review": "46974"
 }
 ```
 
@@ -195,8 +234,10 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 * URL: (cid => 从视频信息接口取得)
 	* /video/ { cid }  (mp4格式)
 	* /videoflv/ { cid }  (flv格式)
-* 请求方式: GET
-
+* 请求方式: GET 
+* 示例: 
+	* mp4 GET http://bilibili-service.daoapp.io/video/3580782/quality=3
+	* flv GET http://bilibili-service.daoapp.io/videoflv/3580782
 参数:
 
 	quailty				[int]  清晰度(1~3，根据视频有不同)[仅供mp4源使用]
@@ -204,14 +245,23 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 成功返回:
 
+mp4
 ```
 {
-  "accept": "mp4,hdmp4",
-  "size": 184992542,
-  "url": "http://xxx.xxxx",
-  "backup": [
-    "http://xxx.xxxx"
-  ]
+    "accept": "mp4,hdmp4",
+    "backup": [
+        "http://cc.acgvideo.com/201601191329/77fcfd7934552b0e2cf974e84d7d92ba/b/81/3580782-1.mp4",
+        "http://ws.acgvideo.com/2/e8/3580782-1hd.mp4?wsTime=1453224424&wsSecret2=bdd28d4da66692521875ce8be36a2807&oi=2021932405&appkey=4ebafd7c4951b366&or=987503882"
+    ],
+    "size": 8781709,
+    "url": "http://ws.acgvideo.com/2/e8/3580782-1.mp4?wsTime=1453224424&wsSecret2=cc4ff05eabce23fb761d568caf3c85db&oi=2021932405&appkey=4ebafd7c4951b366&or=987503882"
+}
+```
+
+flv
+```
+{
+    "url": "http://ws.acgvideo.com/2/e8/3580782-1.flv?wsTime=1453224556&wsSecret2=9fa8a0e66b09410ceab9797d8261209e&oi=2021932405&appkey=4ebafd7c4951b366&or=987503882"
 }
 ```
 
@@ -221,8 +271,9 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 * URL: /bangumi
 * 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/bangumi
 
-参数:
+参数: /bangumi
 
 	btype				[int]  二次元新番:2，三次元:3
 
@@ -270,6 +321,9 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
     * /spinfo/ { spid } 
     * /spinfo   (当没有spid时可用"title"参数代替请求)
 * 请求方式: GET
+* 示例:
+	* { spid } GET http://bilibili-service.daoapp.io/spinfo/56749
+	* title GET http://bilibili-service.daoapp.io/spinfo/title=[极速老师]
 
 参数:
     
@@ -280,43 +334,43 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 ```
 {
-  "alias": "",
-  "alias_spid": 18831,
-  "attention": 179094,
-  "bangumi_date": "2015-10-01",
-  "count": 39,
-  "cover": "http://i0.hdslb.com/sp/03/034df09a0c48e977473246d4765f8b4e.jpg",
-  "create_at": "2013-12-18 17:27",
-  "description": "这里是简介",
-  "favourite": 52208,
-  "isbangumi": 1,
-  "isbangumi_end": 0,
-  "lastupdate": 1446345978,
-  "lastupdate_at": "2015-11-01 10:46",
-  "pubdate": 1387358842,
-  "season": [
-    {
-      "default": false,
-      "index_cover": "http://i1.hdslb.com/sp/92/92f6aa4bf437c5ca2e6f357f0240678e.jpg",
-      "last_episode": null,
-      "season_id": 2050,
-      "season_name": "第一季",
-      "video_view": 0
-    },
-    {
-      "default": false,
-      "index_cover": "http://i2.hdslb.com/sp/cb/cb5ccf5e39045fd83d18ec31851f36c6.jpg",
-      "last_episode": null,
-      "season_id": 2051,
-      "season_name": "第二季",
-      "video_view": 1383367
-    }
-  ],
-  "season_id": 2051,
-  "spid": 56747,
-  "title": "请问您今天要来点兔子吗？？（第二季）",
-  "video_view": 11496158,
-  "view": 736531
+    "alias": "终わりのセラフ",
+    "alias_spid": 41465,
+    "attention": 367438,
+    "bangumi_date": "2015-10-01",
+    "count": 40,
+    "cover": "http://i0.hdslb.com/sp/1e/1e21c6a6e17f5419eb1e10fadc53e6eb.jpg",
+    "create_at": "2014-12-12 21:19",
+    "description": "电视动画《终结的炽天使》改编自日本轻小说家镜贵也原作、漫画家山本大和作画的同名漫画。\r\n2014年8月28日，发表了《终结的炽天使》电视动画化的决定。\r\n2014年12月20日，在日本千叶县幕张展览馆开幕的“Jump Festa 2015”会场上，宣布电视动画《终结的炽天使》会被分割成两个季度播出。\r\n第1期的播送时间为2015年4月4日－6月20日。\r\n第2期则是同年的10月至12月。",
+    "favourite": 172114,
+    "isbangumi": 1,
+    "isbangumi_end": 1,
+    "lastupdate": 1450364026,
+    "lastupdate_at": "2015-12-17 22:53",
+    "pubdate": 1418390386,
+    "season": [
+        {
+            "default": false,
+            "index_cover": "http://i2.hdslb.com/sp/5c/5c7dbad52d522b6a5cbc8fe383ed92fe.jpg",
+            "last_episode": null,
+            "season_id": 2052,
+            "season_name": "第一季",
+            "video_view": 826087
+        },
+        {
+            "default": false,
+            "index_cover": "http://i1.hdslb.com/sp/87/87d650e53a8d50302a369365063c45a4.jpg",
+            "last_episode": null,
+            "season_id": 2053,
+            "season_name": "第二季",
+            "video_view": 4314354
+        }
+    ],
+    "season_id": 2053,
+    "spid": 56749,
+    "title": "终结的炽天使 第二季",
+    "video_view": 28723627,
+    "view": 1350787
 }
 ```
 
@@ -326,6 +380,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 * URL: /spvideos/ { spid }
 * 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/spvideos/56749
 
 参数:
 
@@ -336,31 +391,31 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 ```
 {
-  "code": 0,
-  "count": 17,
-  "list": [
-    {
-      "aid": 3147596,
-      "cid": 4954881,
-      "click": 132329,
-      "cover": "http://i1.hdslb.com/video/64/64a3c078c640faad3862208e367303f4.jpg",
-      "from": "vupload",
-      "page": 0,
-      "title": "【Kyle钢琴】十月番其实是一首歌（传颂K野良点兔物语高达黑杰克FFF超人假面舞会）"
-    },
-    {
-      "aid": 1186141,
-      "cid": 1756783,
-      "click": 14407,
-      "cover": "http://i2.hdslb.com/u_f/df9a71b1232afc1a3a299b7fddfd532e.jpeg",
-      "from": "sina",
-      "page": 0,
-      "title": "【東方】请问您今天要来点优昙华吗？"
-    },
-   	...
-  ],
-  "results": 17,
-  "spid": 56747
+    "code": 0,
+    "count": 17,
+    "list": [
+        {
+            "aid": 2330598,
+            "cid": 3638258,
+            "click": 498347,
+            "cover": "http://i2.hdslb.com/video/51/512fc7fce5bb04a42fe116eb5500af20.jpg",
+            "from": "vupload",
+            "page": 0,
+            "title": "「终结的炽天使」OP ED专辑"
+        },
+        {
+            "aid": 2425245,
+            "cid": 3796297,
+            "click": 101788,
+            "cover": "http://i0.hdslb.com/video/4c/4cf6be151a858c200e4aa5ac07c2ccd1.jpg",
+            "from": "vupload",
+            "page": 0,
+            "title": "让我们的炽天使燃起来吧Answer is near【MAD】"
+        },
+				...
+    ],
+    "results": 17,
+    "spid": 56749
 }
 ```
 
@@ -494,5 +549,177 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 ```
 
 
+### 9. 首页热点
+---
+
+* URL: /indexinfo
+* 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/indexinfo
+
+参数: 无
 
 
+成功返回:
+
+```
+{
+    "code": "0",
+    "result": {
+        "banners": [
+            {
+                "aid": 579138,
+                "img": "http://i1.hdslb.com/u_user/f4170a4a141da0ec2fee8f1ef03c2978.jpg",
+                "link": "http://www.bilibili.com/video/av579138/?br",
+                "pid": 1,
+                "platform": 3,
+                "simg": "",
+                "title": "备长炭",
+                "type": "video"
+            },
+						...
+        ],
+        "catalogys": [
+            {
+                "hots": [
+                    {
+                        "aid": "3594386",
+                        "author": "哔哩哔哩番剧",
+                        "badgepay": false,
+                        "coins": 870,
+                        "create": "2016-01-16 18:15",
+                        "description": "#02 炎之巨人",
+                        "duration": "23:40",
+                        "favorites": 1108,
+                        "mid": 928123,
+                        "pic": "http://i0.hdslb.com/320_200/video/53/5334088c93f4907ddbad826fc1122bfd.jpg",
+                        "play": 320032,
+                        "pts": 338006,
+                        "review": 2403,
+                        "subtitle": "",
+                        "title": "【1月】舞武器舞乱伎 02",
+                        "video_review": 13834
+                    },
+										...
+                ],
+                "tid": 33
+            },
+            {
+                "hots": [
+                    {
+                        "aid": "3608429",
+                        "author": "哔哩哔哩番剧",
+                        "badgepay": false,
+                        "coins": 21,
+                        "create": "2016-01-18 16:05",
+                        "description": "“机器人少女”的企划是东映动画公司在2009年时的一项企划，《机器人少女z》则是把位于“机器人动画金字塔顶端”的“魔神系列三部曲”《魔神Z》《大魔神 GREAT MAZINGER》《UFO魔神古兰戴萨》中的机体进行美少女化，并组成最强最凶猛的“机器人少女Z”简称“Z组合”。",
+                        "duration": "83:00",
+                        "favorites": 428,
+                        "mid": 928123,
+                        "pic": "http://i2.hdslb.com/320_200/video/1a/1ac92893de90b57316ee1bd224c0e485.jpg",
+                        "play": 9770,
+                        "pts": 14959,
+                        "review": 98,
+                        "subtitle": "",
+                        "title": "【合集】机器人少女Z",
+                        "video_review": 244
+                    },
+										...
+                ],
+                "tid": 32
+            },
+            {
+                "hots": [
+                    {
+                        "aid": "3613184",
+                        "author": "腾讯动漫",
+                        "badgepay": false,
+                        "coins": 31,
+                        "create": "2016-01-19 09:53",
+                        "description": "自制 中国惊奇先生第47集：小狐狸脱险，王小二直捣贼窝！\r\n小伙伴们~惊奇先生改为每周二更新了哟~周周都更~约吗？！",
+                        "duration": "12:16",
+                        "favorites": 31,
+                        "mid": 732364,
+                        "pic": "http://i1.hdslb.com/320_200/video/5f/5f32f083c6d7e932b72e13fbfb4a54d6.jpg",
+                        "play": 10044,
+                        "pts": 11123,
+                        "review": 81,
+                        "subtitle": "",
+                        "title": "中国惊奇先生 47",
+                        "video_review": 569
+                    },
+										...
+                ],
+                "tid": 153
+            },
+            {
+                "hots": [
+                    {
+                        "aid": "3589718",
+                        "author": "东映动画",
+                        "badgepay": false,
+                        "coins": 55,
+                        "create": "2016-01-16 00:23",
+                        "description": "https://www.youtube.com/watch?v=TGFWXJ0F4JM 片源：東映アニメーション公式YouTubeチャンネル／原文·翻译：思言／校对：翼尔，みなもと楓／时间轴·后期：Geemon，野龙／制作统筹：AGUMON／制作监督：みなもと楓／字幕：驯兽师联盟／制作：驯兽师联盟／数码兽大冒险tri. 第2章「决意」2016年3月12日剧场上映／数码兽大冒险tri. 第3章「告白」2016年夏剧场上映\r\n",
+                        "duration": "1:27",
+                        "favorites": 248,
+                        "mid": 3923048,
+                        "pic": "http://i1.hdslb.com/320_200/video/fc/fcc480f8369fb279c4527aa7fe6b7c79.jpg",
+                        "play": 31576,
+                        "pts": 32593,
+                        "review": 82,
+                        "subtitle": "",
+                        "title": "【剧场版】数码兽大冒险tri.第2章 决意 PV1【驯兽师联盟】",
+                        "video_review": 154
+                    },
+										...
+                ],
+                "tid": 51
+            },
+            {
+                "hots": [
+                    {
+                        "aid": "3612711",
+                        "author": "南條小鹿",
+                        "badgepay": false,
+                        "coins": 986,
+                        "create": "2016-01-19 05:41",
+                        "description": "二次创作 LoveLive！Nico生课外活动系列的限定复活！！！\r\n\r\n在找视频里的素材时翻到不少以前的东西觉得好怀念 \r\n想起自己当初入μ's坑做的第一档字幕就是课外活动的生放送 \r\n一转眼也过去那么久了\r\n（姨妈痛的缘故躺了两天 所以迟发了两天_(:зゝ∠)_）",
+                        "duration": "82:00",
+                        "favorites": 2042,
+                        "mid": 554122,
+                        "pic": "http://i1.hdslb.com/320_200/video/66/66de11a229cb7db3bf95cb25cfb1d83e.jpg",
+                        "play": 19015,
+                        "pts": 47728,
+                        "review": 418,
+                        "subtitle": "",
+                        "title": "[中字] LoveLive! μ's课外活动 一夜限定的鸟果海姬复活 感谢特番",
+                        "video_review": 5636
+                    },
+										...
+                ],
+                "tid": 152
+            }
+        ],
+        "recommends": [
+            {
+                "aid": "3612711",
+                "author": "南條小鹿",
+                "badgepay": false,
+                "coins": 986,
+                "create": "2016-01-19 05:41",
+                "description": "二次创作 LoveLive！Nico生课外活动系列的限定复活！！！\r\n\r\n在找视频里的素材时翻到不少以前的东西觉得好怀念 \r\n想起自己当初入μ's坑做的第一档字幕就是课外活动的生放送 \r\n一转眼也过去那么久了\r\n（姨妈痛的缘故躺了两天 所以迟发了两天_(:зゝ∠)_）",
+                "duration": "82:00",
+                "favorites": 2042,
+                "mid": 554122,
+                "pic": "http://i1.hdslb.com/320_200/video/66/66de11a229cb7db3bf95cb25cfb1d83e.jpg",
+                "play": 19015,
+                "review": 418,
+                "subtitle": "",
+                "title": "[中字] LoveLive! μ's课外活动 一夜限定的鸟果海姬复活 感谢特番",
+                "video_review": 5636
+            },
+						...
+        ]
+    }
+}
+```
