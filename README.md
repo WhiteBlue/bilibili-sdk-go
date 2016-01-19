@@ -238,6 +238,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 * 示例: 
 	* mp4 GET http://bilibili-service.daoapp.io/video/3580782/quality=3
 	* flv GET http://bilibili-service.daoapp.io/videoflv/3580782
+
 参数:
 
 	quailty				[int]  清晰度(1~3，根据视频有不同)[仅供mp4源使用]
@@ -553,8 +554,8 @@ flv
 ---
 
 * URL: /indexinfo
-* 请求方式: GET
-* 示例: GET http://bilibili-service.daoapp.io/indexinfo
+* 请求方式: POST
+* 示例: POST http://bilibili-service.daoapp.io/indexinfo
 
 参数: 无
 
