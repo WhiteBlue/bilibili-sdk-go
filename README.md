@@ -274,7 +274,7 @@ flv
 * 请求方式: GET
 * 示例: GET http://bilibili-service.daoapp.io/bangumi
 
-参数: /bangumi
+参数:
 
 	btype				[int]  二次元新番:2，三次元:3
 
