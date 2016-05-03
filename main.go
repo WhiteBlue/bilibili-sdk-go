@@ -7,6 +7,7 @@ import (
 	"net/url"
 	"strconv"
 	"time"
+	"fmt"
 )
 
 func MakeFailedJsonMap(code string, message string) map[string]string {
@@ -28,7 +29,9 @@ func main() {
 	go sche.Start()
 	defer sche.Stop()
 
-	gin.SetMode(gin.ReleaseMode)
+	fmt.Println("Info: cache ready")
+
+	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
 
 	//CORS header
@@ -90,6 +93,47 @@ func main() {
 		}
 		c.JSON(200, list)
 	})
+
+
+	//用户信息
+	r.GET("/user/:mid", func(c *gin.Context) {
+		mid := c.Param("mid")
+		midNum, err := strconv.Atoi(mid)
+		if err != nil {
+			c.JSON(400, MakeFailedJsonMap("PARAM ERROR", err.Error()))
+			return
+		}
+		list, err := client.GetUserInfo(midNum)
+		if err != nil {
+			c.JSON(404, MakeFailedJsonMap("USER_NOT_FOUND", err.Error()))
+			return
+		}
+		c.JSON(200, list)
+	})
+
+
+	//用户视频
+	r.GET("/uservideos/:mid", func(c *gin.Context) {
+		mid := c.Param("mid")
+		page := c.DefaultQuery("page", "1")
+		pageSize := c.DefaultQuery("count", "15")
+
+		midNum, err := strconv.Atoi(mid)
+		pageNum, err := strconv.Atoi(page)
+		pageSizeNum, err := strconv.Atoi(pageSize)
+
+		if err != nil {
+			c.JSON(400, MakeFailedJsonMap("PARAM ERROR", err.Error()))
+			return
+		}
+		list, err := client.GetUserVideos(midNum, pageNum, pageSizeNum)
+		if err != nil {
+			c.JSON(404, MakeFailedJsonMap("USER_NOT_FOUND", err.Error()))
+			return
+		}
+		c.JSON(200, list)
+	})
+
 
 	//搜索
 	r.POST("/search", func(c *gin.Context) {
@@ -196,10 +240,31 @@ func main() {
 		c.JSON(200, back)
 	})
 
+	//APP的banner
+	r.GET("/appbanner", func(c *gin.Context) {
+		back := cache.GetStaticCache(LABEL_BANNER)
+
+		c.JSON(200, back)
+	})
+
+
+	//APP的番剧推荐
+	r.GET("/bangumilist", func(c *gin.Context) {
+		back := cache.GetStaticCache(LABEL_BANGUMI_HOT)
+
+		c.JSON(200, back)
+	})
 
 	//IOS首页
 	r.GET("/appindex", func(c *gin.Context) {
 		back := cache.GetStaticCache(LABEL_APP_INDEX)
+
+		c.JSON(200, back)
+	})
+
+	//IOS首页
+	r.GET("/appstartimages", func(c *gin.Context) {
+		back := cache.GetStaticCache(LABEL_START_IMAGE)
 
 		c.JSON(200, back)
 	})

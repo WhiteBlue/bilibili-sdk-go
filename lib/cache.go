@@ -12,10 +12,20 @@ const (
 	VIDEO_CACHE_SIZE = 1000
 	VIDEO_LINK_CACHE_SIZE = 2000
 
+//番剧首页推荐
 	LABEL_BANGUMI_INDEX = "bangumi_index"
+//APP首页推荐
 	LABEL_APP_INDEX = "app_index"
+//番剧列表
 	LABEL_BANGUMI_LIST = "bangumi_list"
+//热门番剧
+	LABEL_BANGUMI_HOT = "app_bangumi_hot"
+//总排行
 	LABEL_ALL_RANK = "all_rank"
+//APP Banner
+	LABEL_BANNER = "app_banner"
+//APP启动图
+	LABEL_START_IMAGE = "app_start_image"
 )
 
 type BCache struct {
@@ -30,12 +40,14 @@ type BCache struct {
 	client    *BClient
 }
 
+//新建缓存
 func NewCache(client *BClient) (*BCache, error) {
+	//视频信息
 	videoCache, err := lru.New(VIDEO_CACHE_SIZE)
 	if err != nil {
 		return nil, err
 	}
-
+	//视频源
 	linkCache, err := lru.New(VIDEO_LINK_CACHE_SIZE)
 	if err != nil {
 		return nil, err
@@ -52,6 +64,7 @@ func NewCache(client *BClient) (*BCache, error) {
 	return cache, nil
 }
 
+//重置缓存
 func (this *BCache) FreshCache() {
 	//Write Lock
 	this.lock.Lock()
@@ -73,6 +86,15 @@ func (this *BCache) FreshCache() {
 
 	if back, err = this.client.GetBangumiIndex(); err == nil {
 		this.cacheMap[LABEL_BANGUMI_INDEX] = back
+	}
+
+	if backMap, err := this.client.GetBannerInfo(); err == nil {
+		this.cacheMap[LABEL_BANNER] = backMap["banner"]
+		this.cacheMap[LABEL_BANGUMI_HOT] = backMap["bangumi"]
+	}
+
+	if back, err := this.client.GetAPPStartImage(); err == nil {
+		this.cacheMap[LABEL_START_IMAGE] = back
 	}
 
 	if err != nil {

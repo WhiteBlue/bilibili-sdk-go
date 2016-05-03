@@ -96,9 +96,25 @@ func doEncrypt(values map[string][]string) string {
 	return query + "&sign=" + sign
 }
 
+//encrypt for post method
+func postEncrypt(values map[string][]string) {
+	if (values == nil) {
+		return
+	}
+	_, sign := encodeSign(values, APP_SECRET)
+	values["appkey"] = []string{APP_KEY}
+	values["sign"] = []string{sign}
+}
+
 func (this *BClient) Get(url string, params map[string][]string) (*JSON, error) {
-	url = url + "?" + doEncrypt(params)
+	if params != nil {
+		url = url + "?" + doEncrypt(params)
+	}
 	return judgeError(this.client.Get(url))
 }
 
+func (this *BClient) Post(url string, params map[string][]string) (*JSON, error) {
+	//postEncrypt(params)
+	return judgeError(this.client.PostForm(url, params))
+}
 

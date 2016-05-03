@@ -242,6 +242,40 @@ func (this *BClient) GetSortRank(tid int, page int, pageSize int, order string) 
 }
 
 
+//取得用户信息
+func (this *BClient) GetUserInfo(mid int) (map[string]interface{}, error) {
+	params := map[string][]string{
+		"mid":{strconv.Itoa(mid)},
+	}
+	json, err := this.Get("http://api.bilibili.cn/userinfo", params)
+	if err != nil {
+		return nil, err
+	}
+	if rMap, ok := json.Map(); ok {
+		return rMap, nil
+	}
+	return nil, errors.New("API return error")
+}
+
+
+//取得用户视频
+func (this *BClient) GetUserVideos(mid int, page int, pageSize int) (map[string]interface{}, error) {
+	params := map[string][]string{
+		"mid":{strconv.Itoa(mid)},
+		"page":{strconv.Itoa(page)},
+		"pagesize":{strconv.Itoa(pageSize)},
+	}
+	json, err := this.Get("http://space.bilibili.com/ajax/member/getSubmitVideos", params)
+	if err != nil {
+		return nil, err
+	}
+	if rMap, ok := json.Map(); ok {
+		return rMap, nil
+	}
+	return nil, errors.New("API return error")
+}
+
+
 //番剧首页
 func (this *BClient) GetBangumiIndex() (map[string]interface{}, error) {
 	params := map[string][]string{
@@ -259,6 +293,52 @@ func (this *BClient) GetBangumiIndex() (map[string]interface{}, error) {
 	return nil, errors.New("API return error")
 }
 
+//取得banner和番剧推荐(喂这两个为什么要在一起)
+func (this *BClient)  GetBannerInfo() (map[string]interface{}, error) {
+	json, err := this.Get("http://app.bilibili.com/x/banner/ver?ver=ios4/ver.ios4.@2x.phone", nil)
+	if err != nil {
+		return nil, err
+	}
+
+	bannerUrl, _ := json.Get("banner").Get("url").String()
+	gameUrl, _ := json.Get("game").Get("url").String()
+	bangumiUrl, _ := json.Get("bangumi").Get("url").String()
+
+	gameJson, err := this.Get(gameUrl, nil)
+	bannerJson, err := this.Get(bannerUrl, nil)
+	bangumiJson, err := this.Get(bangumiUrl, nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	rMap := make(map[string]interface{})
+
+	rMap["game"], _ = gameJson.Map()
+	rMap["banner"], _ = bannerJson.Map()
+	rMap["bangumi"], _ = bangumiJson.Map()
+
+	return rMap, nil
+}
+
+//APP启动图
+func (this *BClient) GetAPPStartImage() (map[string]interface{}, error) {
+	params := map[string][]string{
+		"build":{"3170"},
+		"channel":{"appstore"},
+		"height":{"1334"},
+		"width":{"750"},
+		"plat":{"1"},
+	}
+	json, err := this.Get("http://app.bilibili.com/x/splash", params)
+	if err != nil {
+		return nil, err
+	}
+	if rMap, ok := json.Map(); ok {
+		return rMap, nil
+	}
+	return nil, errors.New("API return error")
+}
 
 //APP首页,暂时没想到有什么用orz
 func (this *BClient) GetAPPIndex() (map[string]interface{}, error) {
