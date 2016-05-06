@@ -6,6 +6,7 @@ import (
 	"strings"
 	"strconv"
 	"fmt"
+	"errors"
 )
 
 const (
@@ -20,8 +21,10 @@ const (
 	LABEL_BANGUMI_LIST = "bangumi_list"
 //热门番剧
 	LABEL_BANGUMI_HOT = "app_bangumi_hot"
-//总排行
+//分类排行
 	LABEL_ALL_RANK = "all_rank"
+//总排行
+	LABEL_TOP_RANK = "top_rank"
 //APP Banner
 	LABEL_BANNER = "app_banner"
 //APP启动图
@@ -59,13 +62,16 @@ func NewCache(client *BClient) (*BCache, error) {
 
 	cache := &BCache{cacheMap:cacheMap, videoInfo:videoCache, videoLink:linkCache, client:client, lock:lock}
 
-	cache.FreshCache()
+	flag := cache.FreshCache()
 
-	return cache, nil
+	if flag {
+		return cache, nil
+	}
+	return nil, errors.New("cache init error")
 }
 
 //重置缓存
-func (this *BCache) FreshCache() {
+func (this *BCache) FreshCache() bool {
 	//Write Lock
 	this.lock.Lock()
 	defer this.lock.Unlock()
@@ -97,9 +103,16 @@ func (this *BCache) FreshCache() {
 		this.cacheMap[LABEL_START_IMAGE] = back
 	}
 
-	if err != nil {
-		fmt.Errorf(err.Error())
+	if back, err := this.client.GetSortRank(-1, 1, 10, "hot"); err == nil {
+		this.cacheMap[LABEL_TOP_RANK] = back
 	}
+
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return false
+	}
+	return true
 }
 
 func (this *BCache) GetVideoInfo(aid int) (map[string]interface{}, error) {

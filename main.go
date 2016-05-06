@@ -45,9 +45,15 @@ func main() {
 		c.JSON(200, gin.H{"message":"BiliBili-Service-v3.0"})
 	})
 
-	//首页信息
+	//分类排行
 	r.GET("/allrank", func(c *gin.Context) {
 		back := cache.GetStaticCache(LABEL_ALL_RANK)
+		c.JSON(200, back)
+	})
+
+	//前十排行
+	r.GET("/toprank", func(c *gin.Context) {
+		back := cache.GetStaticCache(LABEL_TOP_RANK)
 		c.JSON(200, back)
 	})
 

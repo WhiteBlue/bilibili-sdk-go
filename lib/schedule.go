@@ -4,11 +4,11 @@ import "time"
 
 type Schedule struct {
 	t       *time.Ticker
-	handler func()
+	handler func() bool
 }
 
 //Init Schedule
-func InitSchedule(delay time.Duration, handler func()) *Schedule {
+func InitSchedule(delay time.Duration, handler func() bool) *Schedule {
 	t := time.NewTicker(delay)
 
 	return &Schedule{t:t, handler:handler}
