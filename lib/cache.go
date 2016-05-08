@@ -78,38 +78,45 @@ func (this *BCache) FreshCache() bool {
 
 	var back interface{}
 	var err error
-	if back, err = this.client.GetAllRank(); err == nil {
+
+	back, err = this.client.GetAllRank()
+	if err == nil {
 		this.cacheMap[LABEL_ALL_RANK] = back
 	}
 
-	if back, err = this.client.GetAPPIndex(); err == nil {
+	back, err = this.client.GetAPPIndex()
+	if err == nil {
 		this.cacheMap[LABEL_APP_INDEX] = back
 	}
 
-	if back, err = this.client.GetBangumi(); err == nil {
+	back, err = this.client.GetBangumi()
+	if err == nil {
 		this.cacheMap[LABEL_BANGUMI_LIST] = back
 	}
 
-	if back, err = this.client.GetBangumiIndex(); err == nil {
+	back, err = this.client.GetBangumiIndex()
+	if err == nil {
 		this.cacheMap[LABEL_BANGUMI_INDEX] = back
 	}
 
-	if backMap, err := this.client.GetBannerInfo(); err == nil {
+	backMap, err := this.client.GetBannerInfo()
+	if err == nil {
 		this.cacheMap[LABEL_BANNER] = backMap["banner"]
 		this.cacheMap[LABEL_BANGUMI_HOT] = backMap["bangumi"]
 	}
 
-	if back, err := this.client.GetAPPStartImage(); err == nil {
+	back, err = this.client.GetAPPStartImage()
+	if err == nil {
 		this.cacheMap[LABEL_START_IMAGE] = back
 	}
 
-	if back, err := this.client.GetSortRank(-1, 1, 10, "hot"); err == nil {
+	back, err = this.client.GetSortRank(0, 1, 10, "hot")
+	if err == nil {
 		this.cacheMap[LABEL_TOP_RANK] = back
 	}
 
-
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Errorf(err.Error())
 		return false
 	}
 	return true

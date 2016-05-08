@@ -54,15 +54,15 @@ func (this *BClient) GetBangumi() (map[string][]map[string]interface{}, error) {
 
 //取得总排行
 func (this *BClient) GetAllRank() (map[string]interface{}, error) {
+	json, err := this.Get("http://api.bilibili.cn/index", nil)
+	if err != nil {
+		return nil, err
+	}
 	rList := make(map[string]interface{}, 10)
 	for name, key := range sorts {
-		jsonMap, err := this.GetSortRank(key, 1, 10, "hot")
-		if err != nil {
-			return nil, err
+		if innerMap, ok := json.Get("type" + strconv.Itoa(key)).Map(); ok {
+			rList[name] = innerMap
 		}
-		json := &JSON{jsonMap}
-		list, _ := json.Get("list").Map()
-		rList[name] = list
 	}
 	return rList, nil
 }
