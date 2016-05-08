@@ -49,9 +49,9 @@ URL : http://bilibili-service.daoapp.io
 ---
 取得主要分类下的前9个热门视频
 
-* URL: /topinfo
+* URL: /allrank
 * 请求方式: GET
-* 示例: GET http://bilibili-service.daoapp.io/topinfo
+* 示例: GET http://bilibili-service.daoapp.io/allrank
 
 参数: 无
 
@@ -233,15 +233,14 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 * URL: (cid => 从视频信息接口取得)
 	* /video/ { cid }  (mp4格式)
-	* /videoflv/ { cid }  (flv格式)
-* 请求方式: GET 
+* 请求方式: GET
 * 示例: 
-	* mp4 GET http://bilibili-service.daoapp.io/video/3580782/quality=3
-	* flv GET http://bilibili-service.daoapp.io/videoflv/3580782
+	* GET http://bilibili-service.daoapp.io/video/3580782?quality=2
 
 参数:
 
-	quailty				[int]  清晰度(1~3，根据视频有不同)[仅供mp4源使用]
+	quailty				[int]  清晰度(1~2，根据视频有不同)
+	type				[int]  0:flv,1:hdmp4,2:mp4
 
 
 成功返回:
@@ -254,29 +253,20 @@ mp4
         "http://cc.acgvideo.com/201601191329/77fcfd7934552b0e2cf974e84d7d92ba/b/81/3580782-1.mp4",
         "http://ws.acgvideo.com/2/e8/3580782-1hd.mp4?wsTime=1453224424&wsSecret2=bdd28d4da66692521875ce8be36a2807&oi=2021932405&appkey=4ebafd7c4951b366&or=987503882"
     ],
-    "size": 8781709,
     "url": "http://ws.acgvideo.com/2/e8/3580782-1.mp4?wsTime=1453224424&wsSecret2=cc4ff05eabce23fb761d568caf3c85db&oi=2021932405&appkey=4ebafd7c4951b366&or=987503882"
 }
 ```
 
-flv
-```
-{
-    "url": "http://ws.acgvideo.com/2/e8/3580782-1.flv?wsTime=1453224556&wsSecret2=9fa8a0e66b09410ceab9797d8261209e&oi=2021932405&appkey=4ebafd7c4951b366&or=987503882"
-}
-```
 
 ### 5. 番剧更新列表
 ---
-目前B站版权二次元/三次元新番
+目前B站版权二次元新番
 
 * URL: /bangumi
 * 请求方式: GET
 * 示例: GET http://bilibili-service.daoapp.io/bangumi
 
 参数:
-
-	btype				[int]  二次元新番:2，三次元:3
 
 
 成功返回:
@@ -382,6 +372,7 @@ flv
 * URL: /spvideos/ { spid }
 * 请求方式: GET
 * 示例: GET http://bilibili-service.daoapp.io/spvideos/56749
+
 
 参数:
 
@@ -550,12 +541,12 @@ flv
 ```
 
 
-### 9. 首页热点
+### 9. 新番推荐
 ---
 
-* URL: /indexinfo
+* URL: /bangumiindex
 * 请求方式: GET
-* 示例: GET http://bilibili-service.daoapp.io/indexinfo
+* 示例: GET http://bilibili-service.daoapp.io/bangumiindex
 
 参数: 无
 
@@ -724,3 +715,19 @@ flv
     }
 }
 ```
+
+
+
+### 9. APP首页推荐
+---
+> 有大量直播内容,还没想到有什么卵用
+
+
+* URL: /appindex
+* 请求方式: GET
+* 示例: GET http://bilibili-service.daoapp.io/appindex
+
+参数: 无
+
+
+成功返回:略
