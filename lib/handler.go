@@ -291,12 +291,11 @@ func (this *BClient)  GetBannerInfo() (map[string]interface{}, error) {
 		return nil, err
 	}
 
-	bannerUrl, _ := json.Get("banner").Get("url").String()
 	gameUrl, _ := json.Get("game").Get("url").String()
 	bangumiUrl, _ := json.Get("bangumi").Get("url").String()
 
 	gameJson, err := this.Get(gameUrl, nil)
-	bannerJson, err := this.Get(bannerUrl, nil)
+	bannerJson, err := this.Get("http://www.bilibili.com/index/slideshow.json", nil)
 	bangumiJson, err := this.Get(bangumiUrl, nil)
 
 	if err != nil {
