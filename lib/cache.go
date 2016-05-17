@@ -11,7 +11,7 @@ import (
 
 const (
 	VIDEO_CACHE_SIZE = 1000
-	VIDEO_LINK_CACHE_SIZE = 2000
+	VIDEO_LINK_CACHE_SIZE = 1500
 
 //番剧首页推荐
 	LABEL_BANGUMI_INDEX = "bangumi_index"
@@ -62,7 +62,7 @@ func NewCache(client *BClient) (*BCache, error) {
 
 	cache := &BCache{cacheMap:cacheMap, videoInfo:videoCache, videoLink:linkCache, client:client, lock:lock}
 
-	flag := cache.FreshCache()
+	flag := cache.FreshStaticCache()
 
 	if flag {
 		return cache, nil
@@ -71,7 +71,7 @@ func NewCache(client *BClient) (*BCache, error) {
 }
 
 //重置缓存
-func (this *BCache) FreshCache() bool {
+func (this *BCache) FreshStaticCache() bool {
 	//Write Lock
 	this.lock.Lock()
 	defer this.lock.Unlock()
@@ -119,6 +119,13 @@ func (this *BCache) FreshCache() bool {
 		fmt.Errorf(err.Error())
 		return false
 	}
+	return true
+}
+
+//clear the video-info && video-link cache
+func (this *BCache) FreshLRUCache() bool {
+	this.videoInfo.Purge()
+	this.videoLink.Purge()
 	return true
 }
 

@@ -25,11 +25,19 @@ func main() {
 	}
 
 	//Init schedule
-	sche := InitSchedule(2 * time.Hour, cache.FreshCache)
-	go sche.Start()
-	defer sche.Stop()
+	scheStatic := InitSchedule(2 * time.Hour, cache.FreshStaticCache)
+	go scheStatic.Start()
+	defer scheStatic.Stop()
 
-	fmt.Println("Info: cache ready")
+	fmt.Println("Info: sttaic cache ready")
+
+
+	scheLRU := InitSchedule(4 * time.Hour, cache.FreshLRUCache)
+	go scheLRU.Start()
+	defer scheLRU.Stop()
+
+	fmt.Println("Info: lru cache ready")
+
 
 	gin.SetMode(gin.DebugMode)
 	r := gin.Default()
