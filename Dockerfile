@@ -1,2 +1,4 @@
-FROM daocloud.io/golang:onbuild
+FROM golang:onbuild
+
 EXPOSE 8080
+
