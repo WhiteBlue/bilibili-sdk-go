@@ -31,15 +31,13 @@ func main() {
 
 	fmt.Println("Info: sttaic cache ready")
 
-
 	scheLRU := InitSchedule(4 * time.Hour, cache.FreshLRUCache)
 	go scheLRU.Start()
 	defer scheLRU.Stop()
 
 	fmt.Println("Info: lru cache ready")
 
-
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 
 	//CORS header
@@ -169,7 +167,7 @@ func main() {
 				return
 			}
 			c.JSON(200, list)
-		}else {
+		} else {
 			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", err.Error()))
 		}
 	})
@@ -193,7 +191,7 @@ func main() {
 				return
 			}
 			c.JSON(200, list)
-		}else {
+		} else {
 			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", err.Error()))
 		}
 	})
