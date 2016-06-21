@@ -42,8 +42,9 @@ func main() {
 
 	//CORS header
 	r.Use(func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Origin", "www.bilibilih5.club,www.shiroblue.cn,shiroblue.cn")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
+		c.Header("Access-Control-Max-Age", "7200")
 	})
 
 	//index info
