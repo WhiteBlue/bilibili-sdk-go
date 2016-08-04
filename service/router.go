@@ -21,24 +21,20 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.Header("Access-Control-Max-Age", "7200")
 	})
 
-	//index info
 	app.Router.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{"message": "BiliBili-Service-v2.0"})
 	})
 
-	//分类排行
 	app.Router.GET("/allrank", func(c *gin.Context) {
 		back := app.Cache.GetCache(INDEX_CACHE)
 		c.JSON(200, back)
 	})
 
-	//前十排行
 	app.Router.GET("/toprank", func(c *gin.Context) {
 		back := app.Cache.GetCache(ALL_RANK_CACHE)
 		c.JSON(200, back)
 	})
 
-	//视频信息
 	app.Router.GET("/view/:aid", func(c *gin.Context) {
 		aid := c.Param("aid")
 		aidNum, err := strconv.Atoi(aid)
@@ -54,7 +50,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//视频源地址
 	app.Router.GET("/video/:cid", func(c *gin.Context) {
 		cid := c.Param("cid")
 		quality := c.Query("quality")
@@ -76,7 +71,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//用户信息
 	app.Router.GET("/user/:mid", func(c *gin.Context) {
 		mid := c.Param("mid")
 		midNum, err := strconv.Atoi(mid)
@@ -92,7 +86,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//用户视频
 	app.Router.GET("/uservideos/:mid", func(c *gin.Context) {
 		mid := c.Param("mid")
 		page := c.DefaultQuery("page", "1")
@@ -114,7 +107,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//搜索
 	app.Router.POST("/search", func(c *gin.Context) {
 		content := c.PostForm("content")
 		page := c.DefaultPostForm("page", "1")
@@ -158,7 +150,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, target)
 	})
 
-	//分类排行
 	app.Router.GET("/sort/:tid", func(c *gin.Context) {
 		page := c.DefaultQuery("page", "1")
 		pageSize := c.DefaultQuery("count", "20")
@@ -182,7 +173,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//专题页面
 	app.Router.GET("/spinfo/:spid", func(c *gin.Context) {
 		spid := c.Param("spid")
 		spidNum, err := strconv.Atoi(spid)
@@ -199,7 +189,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//专题视频
 	app.Router.GET("/spvideos/:spid", func(c *gin.Context) {
 		spid := c.Param("spid")
 		isBangumi := c.DefaultQuery("bangumi", "0")
@@ -224,14 +213,12 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	//新番获取
 	app.Router.GET("/bangumi", func(c *gin.Context) {
 		back := app.Cache.GetCache(BANGUMI_LIST_CACHE)
 
 		c.JSON(200, back)
 	})
 
-	//新番首页推荐
 	app.Router.GET("/bangumiindex", func(c *gin.Context) {
 		back := app.Cache.GetCache(BANGUMI_CACHE)
 

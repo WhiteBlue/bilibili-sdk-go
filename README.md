@@ -34,6 +34,8 @@ go get -u github.com/WhiteBlue/bilibili-go
 ## Usage
 
 ```
+import "github.com/whiteblue/bilibili-go/client"
+
 c := client.NewClient("APPKEY", "SECRET")
 back, err := c.Bangumi.GetWeekList("2")
 
@@ -41,6 +43,7 @@ if err != nil {
     log.Error(err)
     return
 }
+
 log.Info(result)
 
 ```
@@ -293,7 +296,6 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 成功返回:
 
-mp4
 ```
 {
     "accept": "mp4,hdmp4",
@@ -763,19 +765,3 @@ mp4
     }
 }
 ```
-
-
-
-### 9. APP首页推荐
----
-> 有大量直播内容,还没想到有什么卵用
-
-
-* URL: /appindex
-* 请求方式: GET
-* 示例: GET http://bilibili-service.daoapp.io/appindex
-
-参数: 无
-
-
-成功返回:略
