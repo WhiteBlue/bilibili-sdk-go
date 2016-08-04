@@ -1,8 +1,8 @@
 package test
 
 import (
-	"github.com/whiteblue/BiliBiliGo/client"
-	"github.com/whiteblue/BiliBiliGo/client/service"
+	"github.com/whiteblue/bilibili-go/client"
+	"github.com/whiteblue/bilibili-go/client/service"
 	"strconv"
 	"testing"
 )

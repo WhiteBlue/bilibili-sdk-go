@@ -1,8 +1,8 @@
 package client
 
 import (
-	. "github.com/whiteblue/BiliBiliGo/client/service"
-	"github.com/whiteblue/BiliBiliGo/client/utils"
+	. "github.com/whiteblue/bilibili-go/client/service"
+	"github.com/whiteblue/bilibili-go/client/utils"
 )
 
 type BCli struct {

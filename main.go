@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/whiteblue/BiliBiliGo/service"
+	"github.com/whiteblue/bilibili-go/service"
 	"github.com/go-playground/log"
 )
 

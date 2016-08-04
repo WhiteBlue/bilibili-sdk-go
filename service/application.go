@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/log/handlers/console"
 	"github.com/go-playground/log"
-	"github.com/whiteblue/BiliBiliGo/client"
+	"github.com/whiteblue/bilibili-go/client"
 	"time"
 	"github.com/gin-gonic/contrib/gzip"
 )

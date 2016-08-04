@@ -2,7 +2,7 @@ package service
 
 import (
 	"encoding/json"
-	"github.com/whiteblue/BiliBiliGo/client/utils"
+	"github.com/whiteblue/bilibili-go/client/utils"
 )
 
 type BaseParam struct {

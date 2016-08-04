@@ -23,6 +23,7 @@ _testmain.go
 *.test
 *.prof
 
+*.iml
 
 .idea
 
