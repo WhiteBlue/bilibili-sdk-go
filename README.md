@@ -1,4 +1,4 @@
-# BiliBiliGo
+# bilibili-go
 
 BiliBili API written in Go
 
@@ -28,7 +28,7 @@ BiliBili API written in Go
 ## Install 
 
 ```
-go get -u github.com/WhiteBlue/bilibiligo
+go get -u github.com/WhiteBlue/bilibili-go
 ```
 
 ## Usage
