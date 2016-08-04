@@ -28,7 +28,7 @@ BiliBili API written in Go
 ## Install 
 
 ```
-go get -u github.com/WhiteBlue/bilibili-go
+go get github.com/WhiteBlue/bilibili-go
 ```
 
 ## Usage
