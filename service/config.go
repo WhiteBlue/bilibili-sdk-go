@@ -1,0 +1,31 @@
+package service
+
+import (
+	"os"
+	"encoding/json"
+	"io/ioutil"
+)
+
+type Config struct {
+	Debug  bool `json:"debug"`
+	Appkey string `json:"appkey"`
+	Secret string `json:"secret"`
+}
+
+func ReadConfigFromFile(filename string) (*Config, error) {
+	if _, err := os.Stat(filename); os.IsNotExist(err) {
+		return nil, err
+	}
+	bytes, err := ioutil.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+	var conf Config
+	err = json.Unmarshal(bytes, &conf)
+	if err != nil {
+		return nil, err
+	}
+	return &conf, nil
+}
+
+

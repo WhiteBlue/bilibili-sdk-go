@@ -1,13 +1,61 @@
-# bilibili-service
-B站API的Golang版本，提供视频源解析，排行获取等常用接口，基于iOS版APP接口  
-[BiliBili-Html5](http://www.shiroblue.cn)的一部分
+# BiliBiliGo
 
-## API地址
+BiliBili API written in Go
+
+
+
+## Progress
+
+* Rank
+	* ```SortRank``` (order by danmu/comment/hot)
+* Video
+	* ```VideoInfo```
+	* ```VideoLin``` (mp4/flv)
+* User
+	* ```UserInfo```
+	* ```UserVideos```
+* Special
+	* ```SpecialInfo```
+	* ```SpecialVideos```
+* Bangumi
+	* ```BangumiList```
+	* ```BangumiRecommend```
+* Others
+	* ```Search```(search user/video/bangumi)
+
+
+
+## Install 
+
+```
+go get -u github.com/WhiteBlue/bilibiligo
+```
+
+## Usage
+
+```
+c := client.NewClient("APPKEY", "SECRET")
+back, err := c.Bangumi.GetWeekList("2")
+
+if err != nil {
+    log.Error(err)
+    return
+}
+log.Info(result)
+
+```
+
+
+
+
+
+
+## 接口地址
 ===
 
 URL : http://bilibili-service.daoapp.io
 
-基于DaoCloud
+基于DaoCloud免费容器
 
 ## 接口文档
 ===
