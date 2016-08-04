@@ -2,9 +2,16 @@ FROM golang:onbuild
 
 MAINTAINER whiteblue0616@gmail.com
 
+ADD . $GOPATH/src/github.com/whiteblue/bilibili-go
+
+WORKDIR $GOPATH/src/github.com/whiteblue/bilibili-go
+
+
 RUN go get -u github.com/go-playground/log \
     && go get -u github.com/gin-gonic/gin \
     && go get -u github.com/gin-gonic/contrib/gzip
+
+RUN go build -o bilibili-service main.go
 
 EXPOSE 8080
 
