@@ -11,7 +11,7 @@ RUN go get -u github.com/go-playground/log \
     && go get -u github.com/gin-gonic/gin \
     && go get -u github.com/gin-gonic/contrib/gzip
 
-RUN go build -o bilibili-service main.go
+RUN go build
 
 EXPOSE 8080
 

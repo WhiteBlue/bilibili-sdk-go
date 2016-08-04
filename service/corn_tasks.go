@@ -23,7 +23,7 @@ type IndexInfoTask struct {
 func (i *IndexInfoTask) Run() error {
 	retInfo := make([]SortRankInfo, 0, len(_INDEX_SORTS))
 	for _, sortId := range _INDEX_SORTS {
-		back, err := i.app.Client.Rank.SortRank(sortId, 1, 8, "hot")
+		back, err := i.app.Client.Rank.SortRank(sortId, 1, 10, "hot")
 		if err != nil {
 			return err
 		}
@@ -79,7 +79,7 @@ type TopRankTask struct {
 }
 
 func (i *TopRankTask) Run() error {
-	ret, err := i.app.Client.Rank.SortRank(0, 1, 10, "hot")
+	ret, err := i.app.Client.Rank.SortRank(0, 1, 8, "hot")
 	if err != nil {
 		return err
 	}

@@ -14,7 +14,7 @@ func MakeFailedJsonMap(code string, message string) map[string]string {
 }
 
 func ConformRoute(app *BiliBiliApplication) {
-	//CORS header
+
 	app.Router.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Headers", "Content-Type")

@@ -1,4 +1,4 @@
 #!/bin/sh
 
 
-./bilibili-service
+./bilibili-go
