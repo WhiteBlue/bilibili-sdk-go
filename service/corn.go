@@ -54,13 +54,11 @@ func (t*CornTask) SyncLastRunTime() {
 //execute task
 func exec(f CornTaskImpl) {
 	log.Info("invoke task, taskname: ", f.GetName())
-	//defer func() {
-	//	if r := recover(); r != nil {
-	//		log.Error(r)
-	//	}
-	//}()
-
-	f.SyncLastRunTime()
+	defer func() {
+		if r := recover(); r != nil {
+			log.Error(r)
+		}
+	}()
 
 	if err := f.Run(); err != nil {
 		f.Failure(err)
@@ -78,6 +76,7 @@ type CornService struct {
 }
 
 func (c *CornService) RegisterTask(task CornTaskImpl) {
+	task.SyncLastRunTime()
 	go exec(task)
 	c.tasks = append(c.tasks, task)
 }
@@ -86,8 +85,8 @@ func (c *CornService) syncTaskList(nowTime time.Time) {
 	for _, task := range c.tasks {
 		//Unix timestamp => duration
 		between := time.Duration(nowTime.Unix() - task.GetLastRun().Unix()) * time.Second
-
 		if between >= task.GetDuration() {
+			task.SyncLastRunTime()
 			exec(task)
 		}
 	}
@@ -100,7 +99,7 @@ func (c *CornService) loop() {
 			log.Info("corn loop stopped....")
 			return
 		case nowTime := <-c.ticker.C:
-			c.syncTaskList(nowTime)
+			go c.syncTaskList(nowTime)
 		}
 	}
 }
