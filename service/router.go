@@ -226,7 +226,7 @@ func ConformRoute(app *BiliBiliApplication) {
 	})
 
 	app.Router.GET("/appindex", func(c *gin.Context) {
-		back := app.Cache.GetCache(BANGUMI_CACHE)
+		back := app.Cache.GetCache(LIVE_INDEX_CACHE)
 
 		c.JSON(200, back)
 	})
