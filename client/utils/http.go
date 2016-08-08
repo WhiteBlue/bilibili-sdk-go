@@ -2,11 +2,11 @@ package utils
 
 import (
 	"io/ioutil"
-	"net"
+	//"net"
 	"net/http"
 	"sort"
 	"strings"
-	"time"
+	//"time"
 )
 
 const (
@@ -15,15 +15,15 @@ const (
 
 var (
 	transport = http.Transport{
-		Dial: func(network, addr string) (net.Conn, error) {
-			deadline := time.Now().Add((HTTP_TIMEOUT + 2) * time.Second)
-			c, err := net.DialTimeout(network, addr, HTTP_TIMEOUT * time.Second)
-			if err != nil {
-				return nil, err
-			}
-			c.SetDeadline(deadline)
-			return c, nil
-		},
+		//Dial: func(network, addr string) (net.Conn, error) {
+		//	deadline := time.Now().Add((HTTP_TIMEOUT + 2) * time.Second)
+		//	c, err := net.DialTimeout(network, addr, HTTP_TIMEOUT*time.Second)
+		//	if err != nil {
+		//		return nil, err
+		//	}
+		//	c.SetDeadline(deadline)
+		//	return c, nil
+		//},
 		DisableKeepAlives: true,
 	}
 )
@@ -53,7 +53,7 @@ func httpBuildQuery(params map[string]string) string {
 		buffer = append(buffer, value)
 		buffer = append(buffer, "&")
 	}
-	buffer = buffer[:len(buffer) - 1]
+	buffer = buffer[:len(buffer)-1]
 	return strings.Join(buffer, "")
 }
 

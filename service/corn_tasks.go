@@ -11,7 +11,7 @@ var (
 )
 
 type SortRankInfo struct {
-	SortName string `json:"sort_name"`
+	SortName string        `json:"sort_name"`
 	Videos   []interface{} `json:"videos"`
 }
 
@@ -32,7 +32,7 @@ func (i *IndexInfoTask) Run() error {
 			videos = append(videos, back.List[strconv.Itoa(i)])
 		}
 
-		sortRank := SortRankInfo{SortName:back.Name, Videos:videos}
+		sortRank := SortRankInfo{SortName: back.Name, Videos: videos}
 
 		retInfo = append(retInfo, sortRank)
 
@@ -87,3 +87,16 @@ func (i *TopRankTask) Run() error {
 	return nil
 }
 
+type LiveIndexTask struct {
+	CornTask
+	app *BiliBiliApplication
+}
+
+func (i *LiveIndexTask) Run() error {
+	ret, err := i.app.Client.Others.AppIndex()
+	if err != nil {
+		return err
+	}
+	i.app.Cache.SetCache(LIVE_INDEX_CACHE, ret)
+	return nil
+}

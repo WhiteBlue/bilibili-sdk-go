@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/whiteblue/bilibili-go/service"
 	"github.com/go-playground/log"
+	"github.com/whiteblue/bilibili-go/service"
 )
 
 func main() {

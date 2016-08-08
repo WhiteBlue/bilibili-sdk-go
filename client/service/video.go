@@ -30,47 +30,47 @@ type videoElement struct {
 }
 
 type videoMidInfo struct {
-	Page int `json:"page"`
+	Page int    `json:"page"`
 	Type string `json:"type"`
 	Part string `json:"part"`
-	Cid  int `json:"cid"`
-	Vid  int `json:"vid"`
+	Cid  int    `json:"cid"`
+	Vid  int    `json:"vid"`
 }
 
 type videoInfoResponse struct {
-	Tid         int `json:"tid"`
-	TypeName    string `json:"typename"`
-	ArcType     string `json:"arctype"`
-	Play        string `json:"play"`
-	Review      string `json:"review"`
-	VideoReview string `json:"video_review"`
-	Favorites   string `json:"favorites"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Tag         string `json:"tag"`
-	Pic         string `json:"pic"`
-	Author      string `json:"author"`
-	Mid         string `json:"mid"`
-	AuthorFace  string `json:"face"`
-	Pages       int `json:"pages"`
-	CreatedAt   string `json:"created_at"`
-	Coins       string `json:"coins"`
+	Tid         int                     `json:"tid"`
+	TypeName    string                  `json:"typename"`
+	ArcType     string                  `json:"arctype"`
+	Play        string                  `json:"play"`
+	Review      string                  `json:"review"`
+	VideoReview string                  `json:"video_review"`
+	Favorites   string                  `json:"favorites"`
+	Title       string                  `json:"title"`
+	Description string                  `json:"description"`
+	Tag         string                  `json:"tag"`
+	Pic         string                  `json:"pic"`
+	Author      string                  `json:"author"`
+	Mid         string                  `json:"mid"`
+	AuthorFace  string                  `json:"face"`
+	Pages       int                     `json:"pages"`
+	CreatedAt   string                  `json:"created_at"`
+	Coins       string                  `json:"coins"`
 	PartList    map[string]videoMidInfo `json:"list"`
 }
 
 type videoDurl struct {
-	Length    int `json:"length"`
-	Size      int `json:"size"`
-	Url       string `json:"url"`
+	Length    int      `json:"length"`
+	Size      int      `json:"size"`
+	Url       string   `json:"url"`
 	BackupUrl []string `json:"backup_url"`
 }
 
 type videoPathResponse struct {
-	result        string `json:"result"`
-	Format        string `json:"format"`
-	TimeLength    int `json:"timelength"`
-	AcceptFormat  string `json:"accept_format"`
-	AcceptQuality []int `json:"accept_quality"`
+	result        string      `json:"result"`
+	Format        string      `json:"format"`
+	TimeLength    int         `json:"timelength"`
+	AcceptFormat  string      `json:"accept_format"`
+	AcceptQuality []int       `json:"accept_quality"`
 	List          []videoDurl `json:"durl"`
 }
 
@@ -96,17 +96,16 @@ func (v *VideoService) GetVideoInfo(aid int) (*videoInfoResponse, error) {
 	return &ret, nil
 }
 
-
 /**
-	videoType:
-		"flv"
-		"hdmp4"
-		"mp4"
+videoType:
+	"flv"
+	"hdmp4"
+	"mp4"
 
-	quality:
-		1,2,3
+quality:
+	1,2,3
 
- */
+*/
 func (v *VideoService) GetVideoPartPath(cid int, quality int, videoType string) (*videoPathResponse, error) {
 	retBody, err := v.doRequest("http://interface.bilibili.com/playurl", map[string]string{
 		"cid":     strconv.Itoa(cid),
@@ -122,7 +121,7 @@ func (v *VideoService) GetVideoPartPath(cid int, quality int, videoType string) 
 	json.Unmarshal(retBody, &ret)
 
 	if strings.EqualFold(ret.result, "suee") {
-		return nil, &ApiError{Msg:"api return error..."}
+		return nil, &ApiError{Msg: "api return error..."}
 	}
 
 	return &ret, nil

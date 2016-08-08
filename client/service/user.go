@@ -1,54 +1,53 @@
 package service
 
 import (
-	"strconv"
 	"encoding/json"
+	"strconv"
 )
 
 type userVideosResponse struct {
-	List      []UserVideoElement `json:"vlist"`
+	List      []UserVideoElement              `json:"vlist"`
 	TypeIndex map[string]videoTypeInfoElement `json:"tlist"`
 }
 
 type UserVideoElement struct {
-	Aid         int `json:"aid"`
+	Aid         int    `json:"aid"`
 	Copyright   string `json:"copyright"`
-	TypeId      int `json:"typeid"`
+	TypeId      int    `json:"typeid"`
 	Title       string `json:"title"`
 	Subtitle    string `json:"subtitle"`
-	Play        int `json:"play"`
-	Review      int `json:"review"`
-	VideoReview int `json:"video_review"`
-	Favorites   int `json:"favorites"`
-	Mid         int `json:"mid"`
+	Play        int    `json:"play"`
+	Review      int    `json:"review"`
+	VideoReview int    `json:"video_review"`
+	Favorites   int    `json:"favorites"`
+	Mid         int    `json:"mid"`
 	Author      string `json:"author"`
 	Description string `json:"description"`
 	Created     string `json:"created"`
 	Pic         string `json:"pic"`
-	Comment     int `json:"comment"`
+	Comment     int    `json:"comment"`
 	Length      string `json:"length"`
 }
 
 type userInfoResponse struct {
-	Mid          int `json:"mid"`
-	Name         string `json:"name"`
-	Sex          string `json:"sex"`
-	Rank         int `json:"rank"`
-	Face         string `json:"face"`
+	Mid          int     `json:"mid"`
+	Name         string  `json:"name"`
+	Sex          string  `json:"sex"`
+	Rank         int     `json:"rank"`
+	Face         string  `json:"face"`
 	Coins        float32 `json:"coins"`
-	RegTime      int `json:"regtime"`
-	Birthday     string `json:"birthday"`
-	Place        string `json:"place"`
-	Description  string `json:"description"`
-	Attentions   []int `json:"attentions"`
-	FansNum      int `json:"fans"`
-	FriendNum    int `json:"friend"`
-	AttentionNum int `json:"attention"`
-	Sign         string `json:"sign"`
+	RegTime      int     `json:"regtime"`
+	Birthday     string  `json:"birthday"`
+	Place        string  `json:"place"`
+	Description  string  `json:"description"`
+	Attentions   []int   `json:"attentions"`
+	FansNum      int     `json:"fans"`
+	FriendNum    int     `json:"friend"`
+	AttentionNum int     `json:"attention"`
+	Sign         string  `json:"sign"`
 }
 
 type UserVideoResponse struct {
-
 }
 
 type UserService struct {

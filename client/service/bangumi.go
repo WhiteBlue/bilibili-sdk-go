@@ -22,7 +22,7 @@ type bangumiElement struct {
 	SeasonId     int    `json:"season_id"`
 	SpId         int    `json:"spid"`
 	Url          string `json:"url"`
-	ViewRank     int    `json:"viewRank"`  //mdzz....这尼玛怎么命名的
+	ViewRank     int    `json:"viewRank"` //mdzz....这尼玛怎么命名的
 	Weekday      int    `json:"weekday"`
 }
 
@@ -31,36 +31,36 @@ type banner struct {
 	Link     string `json:"link"`
 	Img      string `json:"img"`
 	SImg     string `json:"simg"`
-	Aid      int `json:"aid"`
+	Aid      int    `json:"aid"`
 	Type     string `json:"type"`
-	Platform int `json:"platform"`
-	Pid      int `json:"pid"`
+	Platform int    `json:"platform"`
+	Pid      int    `json:"pid"`
 }
 
 type recommendBangumiVideo struct {
 	Aid         string `json:"aid"`
 	Title       string `json:"title"`
 	Subtitle    string `json:"subtitle"`
-	Play        int `json:"play"`
-	Review      int `json:"review"`
-	VideoReview int `json:"video_review"`
-	Favorites   int `json:"favorites"`
-	Mid         int `json:"mid"`
+	Play        int    `json:"play"`
+	Review      int    `json:"review"`
+	VideoReview int    `json:"video_review"`
+	Favorites   int    `json:"favorites"`
+	Mid         int    `json:"mid"`
 	Author      string `json:"author"`
 	Description string `json:"description"`
 	Create      string `json:"create"`
 	Pic         string `json:"pic"`
-	Coins       int `json:"coins"`
+	Coins       int    `json:"coins"`
 	Duration    string `json:"duration"`
 }
 
 type weekBangumiResponse struct {
-	Count string `json:"count"`
+	Count string           `json:"count"`
 	List  []bangumiElement `json:"list"`
 }
 
 type bangumiIndexResponse struct {
-	Banners    []banner `json:"banners"`
+	Banners    []banner                `json:"banners"`
 	Recommends []recommendBangumiVideo `json:"recommends"`
 }
 

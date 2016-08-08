@@ -1,9 +1,9 @@
 package service
 
 import (
-	"time"
 	"github.com/anacrolix/sync"
 	"github.com/go-playground/log"
+	"time"
 )
 
 type CornTaskImpl interface {
@@ -46,10 +46,9 @@ func (t *CornTask) GetLastRun() time.Time {
 	return t.LastRun
 }
 
-func (t*CornTask) SyncLastRunTime() {
+func (t *CornTask) SyncLastRunTime() {
 	t.LastRun = time.Now()
 }
-
 
 //execute task
 func exec(f CornTaskImpl) {
@@ -84,7 +83,7 @@ func (c *CornService) RegisterTask(task CornTaskImpl) {
 func (c *CornService) syncTaskList(nowTime time.Time) {
 	for _, task := range c.tasks {
 		//Unix timestamp => duration
-		between := time.Duration(nowTime.Unix() - task.GetLastRun().Unix()) * time.Second
+		between := time.Duration(nowTime.Unix()-task.GetLastRun().Unix()) * time.Second
 		if between >= task.GetDuration() {
 			task.SyncLastRunTime()
 			exec(task)
@@ -116,8 +115,8 @@ func (c *CornService) Stop() {
 func NewCornService() *CornService {
 	return &CornService{
 		ticker: time.NewTicker(time.Minute),
-		tasks:[]CornTaskImpl{},
-		lock:sync.Mutex{},
-		done:make(chan struct{}, 1),
+		tasks:  []CornTaskImpl{},
+		lock:   sync.Mutex{},
+		done:   make(chan struct{}, 1),
 	}
 }

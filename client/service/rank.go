@@ -12,17 +12,16 @@ type RankService struct {
 type sortRankResponse struct {
 	Name    string                  `json:"name"`
 	List    map[string]videoElement `json:"list"`
-	Pages   int `json:"pages"`
-	Results int `json:"results"`
+	Pages   int                     `json:"pages"`
+	Results int                     `json:"results"`
 }
-
 
 /*
 	order:
 		"default",
 		"damku",
 		"hot",
- */
+*/
 func (r *RankService) SortRank(tid, page, pageSize int, order string) (*sortRankResponse, error) {
 	retBody, err := r.doRequest("http://api.bilibili.com/list", map[string]string{
 		"appver":   "2310",
@@ -47,4 +46,3 @@ func (r *RankService) SortRank(tid, page, pageSize int, order string) (*sortRank
 
 	return &ret, nil
 }
-

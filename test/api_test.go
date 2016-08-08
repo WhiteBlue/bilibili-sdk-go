@@ -1,15 +1,16 @@
 package test
 
 import (
+	"encoding/json"
 	"github.com/whiteblue/bilibili-go/client"
-	"github.com/whiteblue/bilibili-go/client/service"
+	"os"
 	"strconv"
 	"testing"
 )
 
 const (
-	APPKEY = ""
-	SECRET = ""
+	APPKEY = "4ebafd7c4951b366"
+	SECRET = "8cb98205e9b2ad3669aad0fce12a4c13"
 )
 
 func TestApiSortRank(t *testing.T) {
@@ -99,7 +100,7 @@ func TestVideoInfo(t *testing.T) {
 
 func TestVideoPath(t *testing.T) {
 	c := client.NewClient(APPKEY, SECRET)
-	back, err := c.Video.GetVideoPartPath("8932442", 1, "mp4")
+	back, err := c.Video.GetVideoPartPath(8932442, 1, "mp4")
 	if err != nil {
 		t.Error(err.Error())
 		t.Failed()
@@ -189,4 +190,19 @@ func TestUserVideos(t *testing.T) {
 		}
 		t.Log(back)
 	}
+}
+
+func TestAppIndex(t *testing.T) {
+	c := client.NewClient(APPKEY, SECRET)
+	_, err := c.Others.AppIndex()
+	if err != nil {
+		t.Error(err)
+	}
+
+	f, err := os.Create("test.json")
+	if err != nil {
+		t.Error(err)
+	}
+	defer f.Close()
+
 }

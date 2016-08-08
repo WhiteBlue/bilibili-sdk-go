@@ -1,13 +1,13 @@
 package service
 
 import (
-	"os"
 	"encoding/json"
 	"io/ioutil"
+	"os"
 )
 
 type Config struct {
-	Debug  bool `json:"debug"`
+	Debug  bool   `json:"debug"`
 	Appkey string `json:"appkey"`
 	Secret string `json:"secret"`
 }
@@ -27,5 +27,3 @@ func ReadConfigFromFile(filename string) (*Config, error) {
 	}
 	return &conf, nil
 }
-
-

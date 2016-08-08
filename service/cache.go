@@ -7,7 +7,7 @@ type CacheManager struct {
 	lock     *sync.RWMutex
 }
 
-func (c *CacheManager)GetCache(key string) interface{} {
+func (c *CacheManager) GetCache(key string) interface{} {
 	c.lock.RLock()
 	defer c.lock.RUnlock()
 	elem, ok := c.cacheMap[key]
@@ -23,6 +23,6 @@ func (c *CacheManager) SetCache(key string, value interface{}) {
 	c.cacheMap[key] = value
 }
 
-func NewCacheManager() (*CacheManager) {
-	return &CacheManager{cacheMap:make(map[string]interface{}), lock: &sync.RWMutex{}}
+func NewCacheManager() *CacheManager {
+	return &CacheManager{cacheMap: make(map[string]interface{}), lock: &sync.RWMutex{}}
 }
