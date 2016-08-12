@@ -76,7 +76,7 @@ type CornService struct {
 
 func (c *CornService) RegisterTask(task CornTaskImpl) {
 	task.SyncLastRunTime()
-	go exec(task)
+	exec(task)
 	c.tasks = append(c.tasks, task)
 }
 

@@ -108,7 +108,7 @@ func ConformRoute(app *BiliBiliApplication) {
 	})
 
 	app.Router.POST("/search", func(c *gin.Context) {
-		content := c.PostForm("content")
+		content := c.DefaultPostForm("content", "")
 		page := c.DefaultPostForm("page", "1")
 		pageSize := c.DefaultPostForm("count", "20")
 		order := c.DefaultPostForm("order", "totalrank")
@@ -118,16 +118,18 @@ func ConformRoute(app *BiliBiliApplication) {
 		pageNum, err := strconv.Atoi(page)
 		pageSizeNum, err := strconv.Atoi(pageSize)
 
-		if !strings.EqualFold(content, "") && err == nil {
-			list, err := app.Client.Others.Search(content, pageNum, pageSizeNum, order, searchType)
-			if err != nil {
-				c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
-				return
-			}
-			c.JSON(200, list)
-		} else {
-			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", err.Error()))
+		if strings.TrimSpace(content) == "" || err != nil {
+			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", ""))
+			return
 		}
+
+		list, err := app.Client.Others.Search(content, pageNum, pageSizeNum, order, searchType)
+		if err != nil {
+			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+			return
+		}
+
+		c.JSON(200, list)
 	})
 
 	app.Router.GET("/top/:tid", func(c *gin.Context) {

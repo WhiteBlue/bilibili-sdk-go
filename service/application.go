@@ -10,12 +10,12 @@ import (
 )
 
 const (
-	INDEX_CACHE        = "index"
-	ALL_RANK_CACHE     = "all_rank"
-	BANGUMI_CACHE      = "bangumi"
+	INDEX_CACHE = "index"
+	ALL_RANK_CACHE = "all_rank"
+	BANGUMI_CACHE = "bangumi"
 	BANGUMI_LIST_CACHE = "bangumi_list"
-	SORT_TOP_CACHE     = "sort-"
-	LIVE_INDEX_CACHE   = "live_index"
+	SORT_TOP_CACHE = "sort-"
+	LIVE_INDEX_CACHE = "live_index"
 )
 
 var (
@@ -57,9 +57,10 @@ func NewApplication(configFile string) (*BiliBiliApplication, error) {
 
 	log.Info("conform config file")
 
-	r := gin.Default()
+	r := gin.New()
 
 	//use gzip
+	r.Use(gin.Recovery())
 	r.Use(gzip.Gzip(gzip.BestCompression))
 
 	//corn service
@@ -80,6 +81,8 @@ func NewApplication(configFile string) (*BiliBiliApplication, error) {
 	corn.Start()
 
 	log.Info("conform task")
+
+	log.Info("init complete, start listen...")
 
 	return app, nil
 }

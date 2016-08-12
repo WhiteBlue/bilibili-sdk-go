@@ -74,14 +74,14 @@ type liveBanner struct {
 }
 
 type liveElement struct {
-	User struct {
-		Face string `json:"face"`
-		Mid  int    `json:"mid"`
-		Name string `json:"name"`
-	} `json:"owner"`
-	Cover struct {
-		Src string `json:"src"`
-	} `json:"cover"`
+	User          struct {
+			      Face string `json:"face"`
+			      Mid  int    `json:"mid"`
+			      Name string `json:"name"`
+		      } `json:"owner"`
+	Cover         struct {
+			      Src string `json:"src"`
+		      } `json:"cover"`
 	Title         string `json:"title"`
 	RoomId        int    `json:"room_id"`
 	Online        int    `json:"online"`
@@ -95,19 +95,19 @@ type liveAppIndexResponse struct {
 	Banners    []liveBanner `json:"banner"`
 	Partitions []struct {
 		Partition struct {
-			Id      int    `json:"id"`
-			Name    string `json:"name"`
-			Area    string `json:"area"`
-			SubIcon struct {
-				Src string `json:"src"`
-			} `json:"sub_icon"`
-		} `json:"partition"`
-		Lives []liveElement `json:"lives"`
+				  Id      int    `json:"id"`
+				  Name    string `json:"name"`
+				  Area    string `json:"area"`
+				  SubIcon struct {
+						  Src string `json:"src"`
+					  } `json:"sub_icon"`
+			  } `json:"partition"`
+		Lives     []liveElement `json:"lives"`
 	} `json:"partitions"`
-	Recommend struct {
-		Lives      []liveElement `json:"lives"`
-		BannerData []liveElement `json:"banner_data"`
-	} `json:"recommend_data"`
+	Recommend  struct {
+			   Lives      []liveElement `json:"lives"`
+			   BannerData []liveElement `json:"banner_data"`
+		   } `json:"recommend_data"`
 }
 
 type OthersService struct {
