@@ -10,12 +10,12 @@ import (
 )
 
 const (
-	INDEX_CACHE = "index"
-	ALL_RANK_CACHE = "all_rank"
-	BANGUMI_CACHE = "bangumi"
+	INDEX_CACHE        = "index"
+	ALL_RANK_CACHE     = "all_rank"
+	BANGUMI_CACHE      = "bangumi"
 	BANGUMI_LIST_CACHE = "bangumi_list"
-	SORT_TOP_CACHE = "sort-"
-	LIVE_INDEX_CACHE = "live_index"
+	SORT_TOP_CACHE     = "sort-"
+	LIVE_INDEX_CACHE   = "live_index"
 )
 
 var (

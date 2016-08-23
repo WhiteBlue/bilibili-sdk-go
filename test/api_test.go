@@ -1,7 +1,6 @@
 package test
 
 import (
-	"encoding/json"
 	"github.com/whiteblue/bilibili-go/client"
 	"os"
 	"strconv"
