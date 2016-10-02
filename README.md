@@ -25,7 +25,7 @@ BiliBili API written in Go
 
 
 
-## Install 
+## Install
 
 ```
 go get github.com/WhiteBlue/bilibili-go
@@ -89,7 +89,7 @@ URL : ```http://bilibili-service.daoapp.io```
 
 
 #### 基本状态码(HTTP)约定:
-	
+
 	500: 服务器错误（API返回异常）
 	404: 请求的资源不可得
 	200: 成功
@@ -97,7 +97,7 @@ URL : ```http://bilibili-service.daoapp.io```
 
 
 #### 错误返回格式:
-	
+
 	{
     "code": "PARAM_ERROR",
     "message": "request valitdate error"
@@ -161,7 +161,7 @@ URL : ```http://bilibili-service.daoapp.io```
       ...
 ]
 ```
-	
+
 ### 2. 分类排行获取
 ---
 各分类下的排行
@@ -266,10 +266,10 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 * URL: ```/video/{cid}```
 * 请求方式: GET
-* 示例: 
+* 示例:
 	* ```curl -X GET -H "Cache-Control: no-cache" "http://bilibili-service.daoapp.io/video/9253164?quality=2"```
 * 参数:
-	* ```quailty```:清晰度(1~2，根据视频有不同)
+	* ```quality```:清晰度(1~2，根据视频有不同)
 	* ```type```: 格式(mp4/flv)
 
 
@@ -306,7 +306,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 * URL: ```/bangumi```
 * 请求方式: GET
 * 示例:
-	* ```curl -X GET -H "Cache-Control: no-cache" "http://bilibili-service.daoapp.io/bangumi"``` 
+	* ```curl -X GET -H "Cache-Control: no-cache" "http://bilibili-service.daoapp.io/bangumi"```
 
 * 参数: 无
 
@@ -350,7 +350,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 ---
 例如番剧专题
 
-* URL: 
+* URL:
     * ```/spinfo/{spid}```
 * 请求方式: GET
 * 示例:
@@ -409,7 +409,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 
 * URL: ```/spvideos/{spid}```
 * 请求方式: GET
-* 示例: 
+* 示例:
 	* ```curl -X GET -H "Cache-Control: no-cache" "http://bilibili-service.daoapp.io/spvideos/56749?bangumi=0"```
 
 * 参数:
@@ -546,7 +546,7 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 * 请求方式: GET
 * 示例:
 	* ```curl -X GET -H "Cache-Control: no-cache" "http://bilibili-service.daoapp.io/user/116683"```
-	
+
 * 参数: 无
 
 成功返回:
@@ -586,8 +586,8 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
 * 请求方式: GET
 * 示例:
 	* ```curl -X GET -H "Cache-Control: no-cache" "http://bilibili-service.daoapp.io/uservideos/116683"```
-	
-* 参数: 
+
+* 参数:
 	* ```page```: 页码
 	* ```count```: 分页容量
 
@@ -700,5 +700,3 @@ mp4/flv视频源取得，（注意某些老视频没有mp4源）
   ]
 }
 ```
-
-
