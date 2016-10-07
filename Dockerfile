@@ -11,8 +11,6 @@ RUN go get github.com/go-playground/log \
     && go get github.com/gin-gonic/gin \
     && go get github.com/gin-gonic/contrib/gzip
 
-RUN go build
-
 EXPOSE 8080
 
 CMD ["./run.sh"]
