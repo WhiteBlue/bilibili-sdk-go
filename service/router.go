@@ -14,15 +14,20 @@ func MakeFailedJsonMap(code string, message string) map[string]string {
 }
 
 func ConformRoute(app *BiliBiliApplication) {
+	allowOrigin := "*"
+
+	if app.Conf.IsPrivate {
+		allowOrigin = strings.Join(app.Conf.AllowHost, ",")
+	}
 
 	app.Router.Use(func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Origin", allowOrigin)
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.Header("Access-Control-Max-Age", "7200")
 	})
 
 	app.Router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "BiliBili-Service-v2.0"})
+		c.JSON(200, gin.H{"message": "BiliBili-Service-ver.bh5"})
 	})
 
 	app.Router.GET("/allrank", func(c *gin.Context) {
