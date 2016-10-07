@@ -23,7 +23,7 @@ func ConformRoute(app *BiliBiliApplication) {
 	})
 
 	app.Router.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{"message": "BiliBili-Service-v2.0"})
+		c.JSON(200, gin.H{"message": "BiliBili-Service-ver.bh5"})
 	})
 
 	app.Router.GET("/allrank", func(c *gin.Context) {
