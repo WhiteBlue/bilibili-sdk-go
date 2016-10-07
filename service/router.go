@@ -14,7 +14,11 @@ func MakeFailedJsonMap(code string, message string) map[string]string {
 }
 
 func ConformRoute(app *BiliBiliApplication) {
-	allowOrigin := strings.Join(app.Conf.AllowHost, ",")
+	allowOrigin := "*"
+
+	if app.Conf.IsPrivate {
+		allowOrigin = strings.Join(app.Conf.AllowHost, ",")
+	}
 
 	app.Router.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", allowOrigin)

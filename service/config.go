@@ -11,6 +11,7 @@ type Config struct {
 	Appkey    string   `json:"appkey"`
 	Secret    string   `json:"secret"`
 	AllowHost []string `json:"allow_host"`
+	IsPrivate bool     `json:"private"`
 }
 
 func ReadConfigFromFile(filename string) (*Config, error) {
