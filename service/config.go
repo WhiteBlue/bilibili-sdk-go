@@ -7,9 +7,10 @@ import (
 )
 
 type Config struct {
-	Debug  bool   `json:"debug"`
-	Appkey string `json:"appkey"`
-	Secret string `json:"secret"`
+	Debug     bool     `json:"debug"`
+	Appkey    string   `json:"appkey"`
+	Secret    string   `json:"secret"`
+	AllowHost []string `json:"allow_host"`
 }
 
 func ReadConfigFromFile(filename string) (*Config, error) {

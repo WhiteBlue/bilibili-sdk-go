@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/log"
 	"strconv"
 	"strings"
 )
@@ -14,9 +15,10 @@ func MakeFailedJsonMap(code string, message string) map[string]string {
 }
 
 func ConformRoute(app *BiliBiliApplication) {
+	allowOrigin := strings.Join(app.Conf.AllowHost, ",")
 
 	app.Router.Use(func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Origin", allowOrigin)
 		c.Header("Access-Control-Allow-Headers", "Content-Type")
 		c.Header("Access-Control-Max-Age", "7200")
 	})

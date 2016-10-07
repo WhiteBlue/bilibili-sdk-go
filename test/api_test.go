@@ -1,6 +1,7 @@
 package test
 
 import (
+	"encoding/json"
 	"github.com/whiteblue/bilibili-go/client"
 	"os"
 	"strconv"
@@ -77,6 +78,17 @@ func TestBangumiIndex(t *testing.T) {
 			}
 			t.Log(ele)
 		}
+
+		f, err := os.Create("test.json")
+		if err != nil {
+			t.Error(err)
+		}
+		defer f.Close()
+
+		jsonByte, _ := json.Marshal(back)
+
+		f.WriteString(string(jsonByte))
+
 	}
 }
 
@@ -198,10 +210,8 @@ func TestAppIndex(t *testing.T) {
 		t.Error(err)
 	}
 
-	f, err := os.Create("test.json")
 	if err != nil {
 		t.Error(err)
 	}
-	defer f.Close()
 
 }
