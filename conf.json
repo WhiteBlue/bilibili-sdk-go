@@ -2,7 +2,7 @@
   "debug": false,
   "appkey": "4ebafd7c4951b366",
   "secret": "8cb98205e9b2ad3669aad0fce12a4c13",
-  "private": false,
+  "private": true,
   "allow_host": [
     "http://shiroblue.cn",
     "http://www.shiroblue.cn",
