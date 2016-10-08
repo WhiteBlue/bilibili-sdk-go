@@ -3,10 +3,5 @@
   "appkey": "4ebafd7c4951b366",
   "secret": "8cb98205e9b2ad3669aad0fce12a4c13",
   "private": true,
-  "allow_host": [
-    "http://shiroblue.cn",
-    "http://www.shiroblue.cn",
-    "http://www.bilibilih5.club",
-    "http://bilibilih5.club"
-  ]
+  "allow_host": "http://bilibilih5.club"
 }

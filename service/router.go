@@ -17,7 +17,7 @@ func ConformRoute(app *BiliBiliApplication) {
 	allowOrigin := "*"
 
 	if app.Conf.IsPrivate {
-		allowOrigin = strings.Join(app.Conf.AllowHost, ",")
+		allowOrigin = app.Conf.AllowHost
 	}
 
 	app.Router.Use(func(c *gin.Context) {

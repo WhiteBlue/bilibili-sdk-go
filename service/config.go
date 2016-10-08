@@ -10,7 +10,7 @@ type Config struct {
 	Debug     bool     `json:"debug"`
 	Appkey    string   `json:"appkey"`
 	Secret    string   `json:"secret"`
-	AllowHost []string `json:"allow_host"`
+	AllowHost string `json:"allow_host"`
 	IsPrivate bool     `json:"private"`
 }
 
