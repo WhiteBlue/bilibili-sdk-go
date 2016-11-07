@@ -73,37 +73,37 @@ type bangumiSeason struct {
 	Cover        string `json:"cover"`
 	IsFinish     string `json:"is_finish"`
 	SeasonId     string `json:"season_id"`
-	SeasonStatus int `json:"season_status"`
+	SeasonStatus int    `json:"season_status"`
 	Title        string `json:"title"`
 	TotalCount   string `json:"total_count"`
 }
 
 type bangumiInfoResponse struct {
-	Actors       []bangumiActor `json:"actor"`
-	Alias        string `json:"alias"`
-	Area         string `json:"area"`
-	BangumiId    string `json:"bangumi_id"`
-	BangumiTitle string `json:"bangumi_title"`
-	Brief        string `json:"brief"`
-	Coins        string `json:"coins"`
-	CopyRight    string `json:"copyright"`
-	Cover        string `json:"cover"`
-	DanmakuCount string `json:"danmaku_count"`
-	Episodes     []bangumiVideo `json:"episodes"`
-	Evaluate     string `json:"evaluate"`
-	Favorites    string `json:"favorites"`
-	IsFinish     string `json:"is_finish"`
-	JpTitle      string `json:"jp_title"`
-	PlayCount    string `json:"play_count"`
-	PubTime      string `json:"pub_time"`
-	SeasonId     string `json:"season_id"`
-	SeasonStatus int `json:"season_status"`
-	SeasonTitle  string `json:"season_title"`
+	Actors       []bangumiActor  `json:"actor"`
+	Alias        string          `json:"alias"`
+	Area         string          `json:"area"`
+	BangumiId    string          `json:"bangumi_id"`
+	BangumiTitle string          `json:"bangumi_title"`
+	Brief        string          `json:"brief"`
+	Coins        string          `json:"coins"`
+	CopyRight    string          `json:"copyright"`
+	Cover        string          `json:"cover"`
+	DanmakuCount string          `json:"danmaku_count"`
+	Episodes     []bangumiVideo  `json:"episodes"`
+	Evaluate     string          `json:"evaluate"`
+	Favorites    string          `json:"favorites"`
+	IsFinish     string          `json:"is_finish"`
+	JpTitle      string          `json:"jp_title"`
+	PlayCount    string          `json:"play_count"`
+	PubTime      string          `json:"pub_time"`
+	SeasonId     string          `json:"season_id"`
+	SeasonStatus int             `json:"season_status"`
+	SeasonTitle  string          `json:"season_title"`
 	Seasons      []bangumiSeason `json:"seasons"`
-	SquareCover  string `json:"squareCover"`
-	Staff        string `json:"staff"`
-	Title        string `json:"title"`
-	TotalCount   string `json:"total_count"`
+	SquareCover  string          `json:"squareCover"`
+	Staff        string          `json:"staff"`
+	Title        string          `json:"title"`
+	TotalCount   string          `json:"total_count"`
 }
 
 type weekBangumiResponse struct {
@@ -157,10 +157,10 @@ func (b *BangumiService) GetIndex() (*bangumiIndexResponse, error) {
 
 func (b *BangumiService) GetBangumiInfo(seasonId string) (*bangumiInfoResponse, error) {
 	retBody, err := b.doRequest("http://bangumi.bilibili.com/api/season_v4", map[string]string{
-		"platform":"ios",
-		"build":"3940",
+		"platform":  "ios",
+		"build":     "3940",
 		"season_id": seasonId,
-		"type":   "bangumi",
+		"type":      "bangumi",
 	})
 	if err != nil {
 		return nil, err

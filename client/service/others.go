@@ -19,7 +19,7 @@ type searchSeasonItem struct {
 	Uri        string `json:"uri"`
 	Params     string `json:"param"`
 	Goto       string `json:"goto"`
-	TotalCount int `json:"total_count"`
+	TotalCount int    `json:"total_count"`
 	Desc       string `json:"cat_desc"`
 }
 
@@ -34,7 +34,7 @@ type searchMovieItem struct {
 	Staff   string `json:"staff"`
 	PubDate string `json:"screen_date"`
 	Area    string `json:"area"`
-	Length  int `json:"length"`
+	Length  int    `json:"length"`
 }
 
 type searchVideoItem struct {
@@ -44,29 +44,29 @@ type searchVideoItem struct {
 	Params   string `json:"param"`
 	Goto     string `json:"goto"`
 	Desc     string `json:"desc"`
-	Play     int `json:"play"`
-	Danmaku  int `json:"danmaku"`
+	Play     int    `json:"play"`
+	Danmaku  int    `json:"danmaku"`
 	Author   string `json:"author"`
 	Duration string `json:"duration"`
 }
 
 type searchItems struct {
 	Seasons []searchSeasonItem `json:"season"`
-	Movies  []searchMovieItem `json:"movie"`
-	Vides   []searchVideoItem `json:"archive"`
+	Movies  []searchMovieItem  `json:"movie"`
+	Vides   []searchVideoItem  `json:"archive"`
 }
 
 type searchNavItem struct {
 	Name  string `json:"name"`
-	Total int `json:"total"`
-	Pages int `json:"pages"`
-	Type  int `json:"type"`
+	Total int    `json:"total"`
+	Pages int    `json:"pages"`
+	Type  int    `json:"type"`
 }
 
 type searchResponse struct {
-	Page  int                       `json:"page"`
-	Navs  []searchNavItem              `json:"nav"`
-	Items searchItems              `json:"items"`
+	Page  int             `json:"page"`
+	Navs  []searchNavItem `json:"nav"`
+	Items searchItems     `json:"items"`
 }
 
 type liveBanner struct {
@@ -77,14 +77,14 @@ type liveBanner struct {
 }
 
 type liveElement struct {
-	User          struct {
-			      Face string `json:"face"`
-			      Mid  int    `json:"mid"`
-			      Name string `json:"name"`
-		      } `json:"owner"`
-	Cover         struct {
-			      Src string `json:"src"`
-		      } `json:"cover"`
+	User struct {
+		Face string `json:"face"`
+		Mid  int    `json:"mid"`
+		Name string `json:"name"`
+	} `json:"owner"`
+	Cover struct {
+		Src string `json:"src"`
+	} `json:"cover"`
 	Title         string `json:"title"`
 	RoomId        int    `json:"room_id"`
 	Online        int    `json:"online"`
@@ -98,19 +98,19 @@ type liveAppIndexResponse struct {
 	Banners    []liveBanner `json:"banner"`
 	Partitions []struct {
 		Partition struct {
-				  Id      int    `json:"id"`
-				  Name    string `json:"name"`
-				  Area    string `json:"area"`
-				  SubIcon struct {
-						  Src string `json:"src"`
-					  } `json:"sub_icon"`
-			  } `json:"partition"`
-		Lives     []liveElement `json:"lives"`
+			Id      int    `json:"id"`
+			Name    string `json:"name"`
+			Area    string `json:"area"`
+			SubIcon struct {
+				Src string `json:"src"`
+			} `json:"sub_icon"`
+		} `json:"partition"`
+		Lives []liveElement `json:"lives"`
 	} `json:"partitions"`
-	Recommend  struct {
-			   Lives      []liveElement `json:"lives"`
-			   BannerData []liveElement `json:"banner_data"`
-		   } `json:"recommend_data"`
+	Recommend struct {
+		Lives      []liveElement `json:"lives"`
+		BannerData []liveElement `json:"banner_data"`
+	} `json:"recommend_data"`
 }
 
 type OthersService struct {
