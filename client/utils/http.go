@@ -1,12 +1,13 @@
 package utils
 
 import (
-	"io/ioutil"
-	//"net"
-	"net/http"
 	"sort"
 	"strings"
-	//"time"
+	"github.com/valyala/fasthttp"
+	"errors"
+	"sync"
+	"fmt"
+	"time"
 )
 
 const (
@@ -14,27 +15,30 @@ const (
 )
 
 var (
-	transport = http.Transport{
-		//Dial: func(network, addr string) (net.Conn, error) {
-		//	deadline := time.Now().Add((HTTP_TIMEOUT + 2) * time.Second)
-		//	c, err := net.DialTimeout(network, addr, HTTP_TIMEOUT*time.Second)
-		//	if err != nil {
-		//		return nil, err
-		//	}
-		//	c.SetDeadline(deadline)
-		//	return c, nil
-		//},
-		DisableKeepAlives: true,
-	}
+	bufPool = &sync.Pool{New:func() interface{} {
+		return make([]byte, 2 * 1024)
+	}}
+	//transport = http.Transport{
+	//	Dial: func(network, addr string) (net.Conn, error) {
+	//		deadline := time.Now().Add((HTTP_TIMEOUT + 2) * time.Second)
+	//		c, err := net.DialTimeout(network, addr, HTTP_TIMEOUT*time.Second)
+	//		if err != nil {
+	//			return nil, err
+	//		}
+	//		c.SetDeadline(deadline)
+	//		return c, nil
+	//	},
+	//	DisableKeepAlives: true,
+	//}
 )
 
 type HttpClient struct {
-	client *http.Client
+	client *fasthttp.Client
 }
 
 func NewHttpClient() HttpClient {
 	return HttpClient{
-		client: &http.Client{Transport: &transport},
+		client: &fasthttp.Client{ReadTimeout: HTTP_TIMEOUT * time.Second, WriteTimeout:HTTP_TIMEOUT * time.Second},
 	}
 }
 
@@ -53,15 +57,23 @@ func httpBuildQuery(params map[string]string) string {
 		buffer = append(buffer, value)
 		buffer = append(buffer, "&")
 	}
-	buffer = buffer[:len(buffer)-1]
+	buffer = buffer[:len(buffer) - 1]
 	return strings.Join(buffer, "")
 }
 
 func (b *HttpClient) Get(url string) ([]byte, error) {
-	resp, err := b.client.Get(url)
+	buf, _ := bufPool.Get().([]byte)
+	defer bufPool.Put(buf)
+
+	code, body, err := b.client.Get(buf, url)
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
-	return ioutil.ReadAll(resp.Body)
+
+	if code != 200 {
+		return nil, errors.New(fmt.Sprintf("server return code %d", code))
+	}
+
+
+	return body, nil
 }

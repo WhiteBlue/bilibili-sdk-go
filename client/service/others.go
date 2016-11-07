@@ -13,80 +13,60 @@ type videoTypeInfoElement struct {
 	Count int    `json:"count"`
 }
 
-type searchPageInfo struct {
-	Total      int `json:"total"`
-	NumResults int `json:"numResults"`
-	Pages      int `json:"pages"`
+type searchSeasonItem struct {
+	Title      string `json:"title"`
+	Cover      string `json:"cover"`
+	Uri        string `json:"uri"`
+	Params     string `json:"param"`
+	Goto       string `json:"goto"`
+	TotalCount int `json:"total_count"`
+	Desc       string `json:"cat_desc"`
 }
 
-type searchVideoElement struct {
-	Aid         string `json:"aid"`
-	Mid         int    `json:"mid"`
-	Copyright   string `json:"copyright"`
-	TypeId      int    `json:"typeid"`
-	TypeName    string `json:"typename"`
-	Title       string `json:"title"`
-	Play        int    `json:"play"`
-	Review      int    `json:"review"`
-	VideoReview int    `json:"video_review"`
-	Favorites   int    `json:"favorites"`
-	Author      string `json:"author"`
-	Description string `json:"description"`
-	Create      string `json:"create"`
-	Pic         string `json:"pic"`
-	Duration    string `json:"duration"`
-	Comment     int    `json:"comment"`
-	RankScore   int    `json:"rank_score"`
-	Tag         string `json:"tag"`
-	PubDate     int    `json:"pubdate"`
-	SendDate    int    `json:"senddate"`
+type searchMovieItem struct {
+	Title   string `json:"title"`
+	Cover   string `json:"cover"`
+	Uri     string `json:"uri"`
+	Params  string `json:"param"`
+	Goto    string `json:"goto"`
+	Desc    string `json:"desc"`
+	Actors  string `json:"actors"`
+	Staff   string `json:"staff"`
+	PubDate string `json:"screen_date"`
+	Area    string `json:"area"`
+	Length  int `json:"length"`
 }
 
-type searchBangumiElement struct {
-	SeasonId     int    `json:"season_id"`
-	BangumiId    int    `json:"bangumi_id"`
-	SpId         int    `json:"spid"`
-	Title        string `json:"title"`
-	Brief        string `json:"brief"`
-	Styles       string `json:"styles"`
-	Cv           string `json:"cv"`
-	Staff        string `json:"staff"`
-	Evaluate     string `json:"evaluate"`
-	Cover        string `json:"cover"`
-	TypeUrl      string `json:"typeurl"`
-	Favorites    int    `json:"favorites"`
-	IsFinish     int    `json:"is_finish"`
-	PlayCount    int    `json:"play_count"`
-	DanmakuCount int    `json:"danmaku_count"`
-	TotalCount   int    `json:"total_count"`
+type searchVideoItem struct {
+	Title    string `json:"title"`
+	Cover    string `json:"cover"`
+	Uri      string `json:"uri"`
+	Params   string `json:"param"`
+	Goto     string `json:"goto"`
+	Desc     string `json:"desc"`
+	Play     int `json:"play"`
+	Danmaku  int `json:"danmaku"`
+	Author   string `json:"author"`
+	Duration string `json:"duration"`
 }
 
-type searchTopicElement struct {
-	TpId        int    `json:"tp_id"`
-	TpType      int    `json:"tp_type"`
-	Mid         int    `json:"mid"`
-	Author      string `json:"author"`
-	Title       string `json:"title"`
-	Keyword     string `json:"keyword"`
-	Arcurl      string `json:"arcurl"`
-	Cover       string `json:"cover"`
-	Description string `json:"description"`
-	Click       int    `json:"click"`
-	Review      int    `json:"review"`
-	Favourite   int    `json:"favourite"`
+type searchItems struct {
+	Seasons []searchSeasonItem `json:"season"`
+	Movies  []searchMovieItem `json:"movie"`
+	Vides   []searchVideoItem `json:"archive"`
 }
 
-type searchResult struct {
-	Videos   []searchVideoElement   `json:"video"`
-	Bangumis []searchBangumiElement `json:"bangumi"`
-	Topics   []searchTopicElement   `json:"topic"`
+type searchNavItem struct {
+	Name  string `json:"name"`
+	Total int `json:"total"`
+	Pages int `json:"pages"`
+	Type  int `json:"type"`
 }
 
 type searchResponse struct {
-	Page     int                       `json:"page"`
-	PageSize int                       `json:"pagesize"`
-	PageInfo map[string]searchPageInfo `json:"pageinfo"`
-	Result   searchResult              `json:"result"`
+	Page  int                       `json:"page"`
+	Navs  []searchNavItem              `json:"nav"`
+	Items searchItems              `json:"items"`
 }
 
 type liveBanner struct {
@@ -97,14 +77,14 @@ type liveBanner struct {
 }
 
 type liveElement struct {
-	User struct {
-		Face string `json:"face"`
-		Mid  int    `json:"mid"`
-		Name string `json:"name"`
-	} `json:"owner"`
-	Cover struct {
-		Src string `json:"src"`
-	} `json:"cover"`
+	User          struct {
+			      Face string `json:"face"`
+			      Mid  int    `json:"mid"`
+			      Name string `json:"name"`
+		      } `json:"owner"`
+	Cover         struct {
+			      Src string `json:"src"`
+		      } `json:"cover"`
 	Title         string `json:"title"`
 	RoomId        int    `json:"room_id"`
 	Online        int    `json:"online"`
@@ -118,19 +98,19 @@ type liveAppIndexResponse struct {
 	Banners    []liveBanner `json:"banner"`
 	Partitions []struct {
 		Partition struct {
-			Id      int    `json:"id"`
-			Name    string `json:"name"`
-			Area    string `json:"area"`
-			SubIcon struct {
-				Src string `json:"src"`
-			} `json:"sub_icon"`
-		} `json:"partition"`
-		Lives []liveElement `json:"lives"`
+				  Id      int    `json:"id"`
+				  Name    string `json:"name"`
+				  Area    string `json:"area"`
+				  SubIcon struct {
+						  Src string `json:"src"`
+					  } `json:"sub_icon"`
+			  } `json:"partition"`
+		Lives     []liveElement `json:"lives"`
 	} `json:"partitions"`
-	Recommend struct {
-		Lives      []liveElement `json:"lives"`
-		BannerData []liveElement `json:"banner_data"`
-	} `json:"recommend_data"`
+	Recommend  struct {
+			   Lives      []liveElement `json:"lives"`
+			   BannerData []liveElement `json:"banner_data"`
+		   } `json:"recommend_data"`
 }
 
 type OthersService struct {
@@ -150,7 +130,7 @@ type OthersService struct {
 func (o *OthersService) Search(keyword string, page, pageSize int, order, searchType string) (*searchResponse, error) {
 	//url raw encode
 	keywordEncode := strings.Replace(url.QueryEscape(keyword), "+", "%20", -1)
-	retBody, err := o.doRequest("http://api.bilibili.com/search", map[string]string{
+	retBody, err := o.doRequest("http://app.bilibili.com/x/v2/search", map[string]string{
 		"keyword":     keywordEncode,
 		"page":        strconv.Itoa(page),
 		"pagesize":    strconv.Itoa(pageSize),
@@ -165,11 +145,13 @@ func (o *OthersService) Search(keyword string, page, pageSize int, order, search
 		return nil, err
 	}
 
-	var ret searchResponse
+	var ret struct {
+		Data searchResponse `json:"data"`
+	}
 
 	json.Unmarshal(retBody, &ret)
 
-	return &ret, nil
+	return &ret.Data, nil
 }
 
 func (o *OthersService) AppIndex() (*liveAppIndexResponse, error) {
