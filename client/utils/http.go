@@ -1,22 +1,23 @@
 package utils
 
 import (
+	"errors"
+	"fmt"
+	"github.com/valyala/fasthttp"
 	"sort"
 	"strings"
-	"github.com/valyala/fasthttp"
-	"errors"
 	"sync"
-	"fmt"
 	"time"
 )
 
 const (
 	HTTP_TIMEOUT = 2
+	HTTP_BUFFER_SIZE = 2 * 1024
 )
 
 var (
-	bufPool = &sync.Pool{New:func() interface{} {
-		return make([]byte, 2 * 1024)
+	bufPool = &sync.Pool{New: func() interface{} {
+		return make([]byte, HTTP_BUFFER_SIZE)
 	}}
 	//transport = http.Transport{
 	//	Dial: func(network, addr string) (net.Conn, error) {
@@ -38,7 +39,7 @@ type HttpClient struct {
 
 func NewHttpClient() HttpClient {
 	return HttpClient{
-		client: &fasthttp.Client{ReadTimeout: HTTP_TIMEOUT * time.Second, WriteTimeout:HTTP_TIMEOUT * time.Second},
+		client: &fasthttp.Client{ReadTimeout: HTTP_TIMEOUT * time.Second, WriteTimeout: HTTP_TIMEOUT * time.Second},
 	}
 }
 
@@ -73,7 +74,6 @@ func (b *HttpClient) Get(url string) ([]byte, error) {
 	if code != 200 {
 		return nil, errors.New(fmt.Sprintf("server return code %d", code))
 	}
-
 
 	return body, nil
 }
