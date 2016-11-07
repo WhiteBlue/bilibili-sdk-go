@@ -57,7 +57,7 @@ func ConformRoute(app *BiliBiliApplication) {
 
 	app.Router.GET("/video/:cid", func(c *gin.Context) {
 		cid := c.Param("cid")
-		quality := c.Query("quality")
+		quality := c.DefaultQuery("quality", "1")
 		vType := c.DefaultQuery("type", "mp4")
 		cidNum, err := strconv.Atoi(cid)
 		if err != nil {
@@ -94,7 +94,7 @@ func ConformRoute(app *BiliBiliApplication) {
 	app.Router.GET("/uservideos/:mid", func(c *gin.Context) {
 		mid := c.Param("mid")
 		page := c.DefaultQuery("page", "1")
-		pageSize := c.DefaultQuery("count", "15")
+		pageSize := c.DefaultQuery("page_size", "20")
 
 		midNum, err := strconv.Atoi(mid)
 		pageNum, err := strconv.Atoi(page)
@@ -112,19 +112,24 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	app.Router.POST("/search", func(c *gin.Context) {
-		content := c.DefaultPostForm("content", "")
-		page := c.DefaultPostForm("page", "1")
-		pageSize := c.DefaultPostForm("count", "20")
-		order := c.DefaultPostForm("order", "totalrank")
-		searchType := c.DefaultPostForm("type", "all")
+	app.Router.GET("/search", func(c *gin.Context) {
+		content := c.Query("content")
+		page := c.DefaultQuery("page", "1")
+		pageSize := c.DefaultQuery("page_size", "20")
+		order := c.DefaultQuery("order", "totalrank")
+		searchType := c.DefaultQuery("type", "all")
 
 		var err error
 		pageNum, err := strconv.Atoi(page)
 		pageSizeNum, err := strconv.Atoi(pageSize)
 
-		if strings.TrimSpace(content) == "" || err != nil {
+		if err != nil {
 			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", ""))
+			return
+		}
+
+		if strings.TrimSpace(content) == "" {
+			c.JSON(400, MakeFailedJsonMap("PARAM 'content' is '' or not set", ""))
 			return
 		}
 
@@ -196,32 +201,21 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, list)
 	})
 
-	app.Router.GET("/spvideos/:spid", func(c *gin.Context) {
-		spid := c.Param("spid")
-		isBangumi := c.DefaultQuery("bangumi", "0")
-
-		var err error
-		spidNum, err := strconv.Atoi(spid)
-		isBangumiNum, err := strconv.Atoi(isBangumi)
-		if err != nil {
-			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", ""))
-		}
-
-		var isBangumiBool bool
-		if isBangumiNum == 1 {
-			isBangumiBool = true
-		}
-
-		list, err := app.Client.Special.GetSpecialVideos(spidNum, isBangumiBool)
-		if err != nil {
-			c.JSON(404, MakeFailedJsonMap("SP_NOT_FOUND", err.Error()))
-			return
-		}
-		c.JSON(200, list)
-	})
-
 	app.Router.GET("/bangumi", func(c *gin.Context) {
 		back := app.Cache.GetCache(BANGUMI_LIST_CACHE)
+
+		c.JSON(200, back)
+	})
+
+	app.Router.GET("/bangumiinfo/:seasonid", func(c *gin.Context) {
+		seasonId := c.Param("seasonid")
+
+		back, err := app.Client.Bangumi.GetBangumiInfo(seasonId)
+
+		if err != nil {
+			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+			return
+		}
 
 		c.JSON(200, back)
 	})

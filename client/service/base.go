@@ -37,7 +37,6 @@ func (b *BaseService) doRequest(url string, params map[string]string) ([]byte, e
 	reqUrl := url + "?" + query + "&sign=" + sign
 	retByte, err := b.Client.Get(reqUrl)
 	if err != nil {
-
 		return nil, err
 	}
 	var badRet apiResponse
