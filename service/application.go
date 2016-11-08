@@ -10,12 +10,13 @@ import (
 )
 
 const (
-	INDEX_CACHE        = "index"
-	ALL_RANK_CACHE     = "all_rank"
-	BANGUMI_CACHE      = "bangumi"
+	INDEX_CACHE = "index"
+	ALL_RANK_CACHE = "all_rank"
+	BANGUMI_CACHE = "bangumi"
 	BANGUMI_LIST_CACHE = "bangumi_list"
-	SORT_TOP_CACHE     = "sort-"
-	LIVE_INDEX_CACHE   = "live_index"
+	SORT_TOP_CACHE = "sort-"
+	LIVE_INDEX_CACHE = "live_index"
+	INDEX_BANNER_CACHE = "index_banner"
 )
 
 var (
@@ -93,4 +94,5 @@ func conformTask(app *BiliBiliApplication) {
 	app.Corn.RegisterTask(&BangumiListTask{CornTask: CornTask{Name: "bangumi_list", Duration: 6 * time.Hour}, app: app})
 	app.Corn.RegisterTask(&TopRankTask{CornTask: CornTask{Name: "top_rank", Duration: 2 * time.Hour}, app: app})
 	app.Corn.RegisterTask(&LiveIndexTask{CornTask: CornTask{Name: "alive_index", Duration: 2 * time.Hour}, app: app})
+	app.Corn.RegisterTask(&BannerTask{CornTask: CornTask{Name: "index_banner", Duration: 6 * time.Hour}, app: app})
 }

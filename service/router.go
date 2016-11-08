@@ -117,7 +117,6 @@ func ConformRoute(app *BiliBiliApplication) {
 		page := c.DefaultQuery("page", "1")
 		pageSize := c.DefaultQuery("page_size", "20")
 		order := c.DefaultQuery("order", "totalrank")
-		searchType := c.DefaultQuery("type", "all")
 
 		var err error
 		pageNum, err := strconv.Atoi(page)
@@ -133,7 +132,54 @@ func ConformRoute(app *BiliBiliApplication) {
 			return
 		}
 
-		list, err := app.Client.Others.Search(content, pageNum, pageSizeNum, order, searchType)
+		list, err := app.Client.Others.Search(content, pageNum, pageSizeNum, order)
+		if err != nil {
+			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
+			return
+		}
+
+		c.JSON(200, list)
+	})
+
+	//type :
+	//	bangumi => 1
+	//	user =>2
+	//	movie=>3
+	//	sp=>4
+
+	app.Router.GET("/searchbytype", func(c *gin.Context) {
+		content := c.Query("content")
+		page := c.DefaultQuery("page", "1")
+		pageSize := c.DefaultQuery("page_size", "20")
+		searchType := c.Query("type")
+
+		var err error
+		pageNum, err := strconv.Atoi(page)
+		pageSizeNum, err := strconv.Atoi(pageSize)
+
+		if err != nil {
+			c.JSON(400, MakeFailedJsonMap("PARAM_ERROR", ""))
+			return
+		}
+
+		if strings.TrimSpace(content) == "" {
+			c.JSON(400, MakeFailedJsonMap("PARAM 'content' is '' or not set", ""))
+			return
+		}
+
+		if strings.TrimSpace(searchType) == "" {
+			c.JSON(400, MakeFailedJsonMap("PARAM 'type' is '' or not set", ""))
+			return
+		}
+
+		typeInt := 1
+		switch searchType {
+		case "user":typeInt = 2
+		case "movie":typeInt = 3
+		case "sp":typeInt = 4
+		}
+
+		list, err := app.Client.Others.SearchByType(content, pageNum, pageSizeNum, typeInt)
 		if err != nil {
 			c.JSON(500, MakeFailedJsonMap("API_RETURN_ERROR", err.Error()))
 			return
@@ -226,8 +272,14 @@ func ConformRoute(app *BiliBiliApplication) {
 		c.JSON(200, back)
 	})
 
-	app.Router.GET("/appindex", func(c *gin.Context) {
+	app.Router.GET("/liveindex", func(c *gin.Context) {
 		back := app.Cache.GetCache(LIVE_INDEX_CACHE)
+
+		c.JSON(200, back)
+	})
+
+	app.Router.GET("/banner", func(c *gin.Context) {
+		back := app.Cache.GetCache(INDEX_BANNER_CACHE)
 
 		c.JSON(200, back)
 	})
