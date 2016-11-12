@@ -100,3 +100,17 @@ func (i *LiveIndexTask) Run() error {
 	i.app.Cache.SetCache(LIVE_INDEX_CACHE, ret)
 	return nil
 }
+
+type BannerTask struct {
+	CornTask
+	app *BiliBiliApplication
+}
+
+func (b *BannerTask) Run() error {
+	ret, err := b.app.Client.Others.IndexBanner()
+	if err != nil {
+		return err
+	}
+	b.app.Cache.SetCache(INDEX_BANNER_CACHE, ret)
+	return nil
+}

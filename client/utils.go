@@ -1,14 +1,30 @@
-package utils
+package client
 
 import (
-	"errors"
-	"fmt"
+	"crypto/md5"
+	"encoding/hex"
 	"github.com/valyala/fasthttp"
+	"time"
 	"sort"
 	"strings"
+	"fmt"
 	"sync"
-	"time"
+	"errors"
 )
+
+func EncodeSign(params map[string]string, secret string) (string, string) {
+	queryString := httpBuildQuery(params)
+	return queryString, Md5(queryString + secret)
+}
+
+
+
+func Md5(formal string) string {
+	h := md5.New()
+	h.Write([]byte(formal))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
 
 const (
 	HTTP_TIMEOUT = 2

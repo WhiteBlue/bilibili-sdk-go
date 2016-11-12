@@ -1,8 +1,7 @@
-package service
+package client
 
 import (
 	"encoding/json"
-	"github.com/whiteblue/bilibili-go/client/utils"
 )
 
 type BaseParam struct {
@@ -12,10 +11,9 @@ type BaseParam struct {
 
 type BaseService struct {
 	Params BaseParam
-	Client utils.HttpClient
+	Client HttpClient
 }
 
-//mdzz..... Message和Error为什么要分两个
 type apiResponse struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
@@ -33,7 +31,7 @@ func (a *ApiError) Error() string {
 func (b *BaseService) doRequest(url string, params map[string]string) ([]byte, error) {
 	params["appkey"] = b.Params.Appkey
 	//generate bilibili sign code
-	query, sign := utils.EncodeSign(params, b.Params.Secret)
+	query, sign := EncodeSign(params, b.Params.Secret)
 	reqUrl := url + "?" + query + "&sign=" + sign
 	retByte, err := b.Client.Get(reqUrl)
 	if err != nil {
