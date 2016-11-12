@@ -1,10 +1,5 @@
 package client
 
-import (
-	. "github.com/whiteblue/bilibili-go/client/service"
-	"github.com/whiteblue/bilibili-go/client/utils"
-)
-
 type BCli struct {
 	Rank    RankService
 	Bangumi BangumiService
@@ -20,7 +15,7 @@ func NewClient(appkey, secret string) *BCli {
 		Secret: secret,
 	}
 
-	client := utils.NewHttpClient()
+	client := NewHttpClient()
 
 	base := BaseService{params, client}
 	return &BCli{

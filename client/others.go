@@ -1,4 +1,4 @@
-package service
+package client
 
 import (
 	"encoding/json"
@@ -36,7 +36,7 @@ type searchItem struct {
 	SeasonDesc       string `json:"cat_desc"`
 
 	UserFans         int `json:"fans"`
-	UserSign         int `json:"sign"`
+	UserSign         string `json:"sign"`
 }
 
 type searchItems struct {
