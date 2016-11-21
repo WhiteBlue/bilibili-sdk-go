@@ -1,0 +1,109 @@
+{
+	"ImportPath": "github.com/whiteblue/bilibili-go",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v75",
+	"Deps": [
+		{
+			"ImportPath": "github.com/anacrolix/missinggo",
+			"Rev": "03b41562f79c09a2bccb139f2a6282dcd14d6ce6"
+		},
+		{
+			"ImportPath": "github.com/anacrolix/sync",
+			"Rev": "812602587b72df6a2a4f6e30536adc75394a374b"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/contrib/gzip",
+			"Rev": "547e518040cfb96576b507d2f26779ab9c6fc829"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/gin",
+			"Comment": "v1.0rc1-268-gf931d1e",
+			"Rev": "f931d1ea80ae95a6fc739213cdd9399bd2967fb6"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/gin/binding",
+			"Comment": "v1.0rc1-268-gf931d1e",
+			"Rev": "f931d1ea80ae95a6fc739213cdd9399bd2967fb6"
+		},
+		{
+			"ImportPath": "github.com/gin-gonic/gin/render",
+			"Comment": "v1.0rc1-268-gf931d1e",
+			"Rev": "f931d1ea80ae95a6fc739213cdd9399bd2967fb6"
+		},
+		{
+			"ImportPath": "github.com/go-playground/log",
+			"Comment": "v4.0.1",
+			"Rev": "700a09cca964de69c81ed1d7fa3bb9b94af1fd5f"
+		},
+		{
+			"ImportPath": "github.com/go-playground/log/handlers/console",
+			"Comment": "v4.0.1",
+			"Rev": "700a09cca964de69c81ed1d7fa3bb9b94af1fd5f"
+		},
+		{
+			"ImportPath": "github.com/golang/protobuf/proto",
+			"Rev": "1f49d83d9aa00e6ce4fc8258c71cc7786aec968a"
+		},
+		{
+			"ImportPath": "github.com/klauspost/compress/flate",
+			"Comment": "v1.1-2-ge3b7981",
+			"Rev": "e3b7981a12dd3cab49afa1d3a50e715846f23732"
+		},
+		{
+			"ImportPath": "github.com/klauspost/compress/gzip",
+			"Comment": "v1.1-2-ge3b7981",
+			"Rev": "e3b7981a12dd3cab49afa1d3a50e715846f23732"
+		},
+		{
+			"ImportPath": "github.com/klauspost/compress/zlib",
+			"Comment": "v1.1-2-ge3b7981",
+			"Rev": "e3b7981a12dd3cab49afa1d3a50e715846f23732"
+		},
+		{
+			"ImportPath": "github.com/klauspost/cpuid",
+			"Comment": "v1.0",
+			"Rev": "09cded8978dc9e80714c4d85b0322337b0a1e5e0"
+		},
+		{
+			"ImportPath": "github.com/klauspost/crc32",
+			"Comment": "v1.0-2-gcb6bfca",
+			"Rev": "cb6bfca970f6908083f26f39a79009d608efd5cd"
+		},
+		{
+			"ImportPath": "github.com/manucorporat/sse",
+			"Rev": "ee05b128a739a0fb76c7ebd3ae4810c1de808d6d"
+		},
+		{
+			"ImportPath": "github.com/valyala/bytebufferpool",
+			"Rev": "e746df99fe4a3986f4d4f79e13c1e0117ce9c2f7"
+		},
+		{
+			"ImportPath": "github.com/valyala/fasthttp",
+			"Comment": "v20160617-69-g6cd438b",
+			"Rev": "6cd438ba896c48caa4194fb7381d91eae33b9461"
+		},
+		{
+			"ImportPath": "github.com/valyala/fasthttp/fasthttputil",
+			"Comment": "v20160617-69-g6cd438b",
+			"Rev": "6cd438ba896c48caa4194fb7381d91eae33b9461"
+		},
+		{
+			"ImportPath": "github.com/valyala/fasthttp/stackless",
+			"Comment": "v20160617-69-g6cd438b",
+			"Rev": "6cd438ba896c48caa4194fb7381d91eae33b9461"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "6250b412798208e6c90b03b7c4f226de5aa299e2"
+		},
+		{
+			"ImportPath": "gopkg.in/go-playground/validator.v8",
+			"Comment": "v8.18.1",
+			"Rev": "5f57d2222ad794d0dffb07e664ea05e2ee07d60c"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Rev": "e4d366fc3c7938e2958e662b4258c7a89e1f0e3e"
+		}
+	]
+}
