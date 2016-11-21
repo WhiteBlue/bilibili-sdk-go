@@ -1,4 +1,4 @@
 #!/bin/sh
 
 
-go build && ./bilibili-go
+godep go build && ./bilibili-go
