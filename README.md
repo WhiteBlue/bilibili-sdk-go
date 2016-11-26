@@ -1,7 +1,20 @@
-# bilibili-go
+# bilibili-sdk-go
 
-BiliBili API written in Go
+BiliBili Open API & SDK written in Go
 
+
+
+## Open API
+
+Docs: [docs](docs/api_doc.md)
+
+* api.bilibilih5.club
+* api.prprpr.me/bilibili ( support by [DIYgod](https://github.com/DIYgod))
+
+Deploy:
+
+* ```docker build -t bilibili-go```
+* ```docekr run -d -p 80:8080 bilibili-go```
 
 
 ## Progress
@@ -48,14 +61,10 @@ log.Info(result)
 
 ```
 
+## Related Projects
 
-## API
+* [BiliBili-Html5](http://bilibilih5.club)
 
-URL: ```http://bilibili-service.daoapp.io```
-
-Docs: [docs](docs/api_doc.md)
-
-Support By DaoCloud
 
 
 ## License
