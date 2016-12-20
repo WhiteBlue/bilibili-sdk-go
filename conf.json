@@ -2,6 +2,6 @@
   "debug": false,
   "appkey": "27eb53fc9058f8c3",
   "secret": "810fcdc8d26caccd213c0ae6ef74a5ca",
-  "private": true,
+  "private": false,
   "allow_host": "http://bilibilih5.club"
 }
