@@ -9,40 +9,46 @@ type RankService struct {
 	BaseService
 }
 
-type sortRankResponse struct {
-	Name    string                  `json:"name"`
-	List    map[string]videoElement `json:"list"`
-	Pages   int                     `json:"pages"`
-	Results int                     `json:"results"`
+type RankVideoElement struct {
+	Title     string `json:"title"`
+	Cover     string `json:"cover"`
+	Uri       string `json:"uri"`
+	Param     string `json:"param"`
+	Goto      string `json:"goto"`
+	Name      string `json:"name"`
+	Play      int `json:"play"`
+	Reply     int `json:"reply"`
+	Favourite int `json:"favourite"`
 }
 
 /*
 	order:
-		"default",
-		"damku",
-		"hot",
+		"view",
+		"senddate",
+		"reply",
+		"danmaku",
+		"favorite",
 */
-func (r *RankService) SortRank(tid, page, pageSize int, order string) (*sortRankResponse, error) {
-	retBody, err := r.doRequest("http://api.bilibili.com/list", map[string]string{
-		"appver":   "2310",
-		"build":    "2310",
-		"ios":      "0",
+func (r *RankService) SortRank(tid, page, pageSize int, order string) ([]RankVideoElement, error) {
+	retBody, err := r.doRequest("http://app.bilibili.com/x/v2/region/show/child/list", map[string]string{
+		"build":    "4040",
+		"device":      "phone",
+		"mobi_app":      "iphone",
+		"platform":      "ios",
 		"order":    order,
-		"page":     strconv.Itoa(page),
-		"pagesize": strconv.Itoa(pageSize),
-		"platform": "ios",
-		"tid":      strconv.Itoa(tid),
-		"type":     "json",
+		"pn":     strconv.Itoa(page),
+		"ps": strconv.Itoa(pageSize),
+		"rid":      strconv.Itoa(tid),
 	})
 	if err != nil {
 		return nil, err
 	}
-	var ret sortRankResponse
+	var ret struct {
+		List []RankVideoElement `json:"data"`
+	}
 
 	//delete the 'num' key (mdzz)
 	json.Unmarshal(retBody, &ret)
 
-	delete(ret.List, "num")
-
-	return &ret, nil
+	return ret.List, nil
 }

@@ -30,6 +30,8 @@ func (a *ApiError) Error() string {
 
 func (b *BaseService) doRequest(url string, params map[string]string) ([]byte, error) {
 	params["appkey"] = b.Params.Appkey
+	params["actionKey"] = "appkey"
+	params["access_key"] = b.Params.Secret
 	//generate bilibili sign code
 	query, sign := EncodeSign(params, b.Params.Secret)
 	reqUrl := url + "?" + query + "&sign=" + sign
