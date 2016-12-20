@@ -19,6 +19,7 @@ type RankVideoElement struct {
 	Play      int `json:"play"`
 	Reply     int `json:"reply"`
 	Favourite int `json:"favourite"`
+	Danmaku   int `json:"danmaku"`
 }
 
 /*

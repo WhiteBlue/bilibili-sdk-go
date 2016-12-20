@@ -77,8 +77,6 @@ func httpBuildQuery(params map[string]string) string {
 
 func (b *HttpClient) Get(url string) ([]byte, error) {
 
-	fmt.Println(url)
-
 	buf, _ := bufPool.Get().([]byte)
 	defer bufPool.Put(buf)
 
