@@ -17,14 +17,11 @@ func EncodeSign(params map[string]string, secret string) (string, string) {
 	return queryString, Md5(queryString + secret)
 }
 
-
-
 func Md5(formal string) string {
 	h := md5.New()
 	h.Write([]byte(formal))
 	return hex.EncodeToString(h.Sum(nil))
 }
-
 
 const (
 	HTTP_TIMEOUT = 2
@@ -79,6 +76,9 @@ func httpBuildQuery(params map[string]string) string {
 }
 
 func (b *HttpClient) Get(url string) ([]byte, error) {
+
+	fmt.Println(url)
+
 	buf, _ := bufPool.Get().([]byte)
 	defer bufPool.Put(buf)
 

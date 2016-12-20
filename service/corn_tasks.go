@@ -11,8 +11,8 @@ var (
 )
 
 type SortRankInfo struct {
-	SortName string        `json:"sort_name"`
-	Videos   []interface{} `json:"videos"`
+	SortId int        `json:"sort_id"`
+	Videos []interface{} `json:"videos"`
 }
 
 type IndexInfoTask struct {
@@ -23,16 +23,17 @@ type IndexInfoTask struct {
 func (i *IndexInfoTask) Run() error {
 	retInfo := make([]SortRankInfo, 0, len(_INDEX_SORTS))
 	for _, sortId := range _INDEX_SORTS {
-		back, err := i.app.Client.Rank.SortRank(sortId, 1, 10, "hot")
+		back, err := i.app.Client.Rank.SortRank(sortId, 1, 10, "view")
 		if err != nil {
 			return err
 		}
-		videos := make([]interface{}, 0, len(back.List))
-		for i := 0; i < len(back.List); i++ {
-			videos = append(videos, back.List[strconv.Itoa(i)])
+		videos := make([]interface{}, 0, len(back))
+
+		for _, v := range (back) {
+			videos = append(videos, v)
 		}
 
-		sortRank := SortRankInfo{SortName: back.Name, Videos: videos}
+		sortRank := SortRankInfo{SortId: sortId, Videos: videos}
 
 		retInfo = append(retInfo, sortRank)
 
