@@ -3,7 +3,7 @@ package client
 import (
 	"encoding/json"
 	"strconv"
-	"strings"
+	"fmt"
 )
 
 type videoElement struct {
@@ -106,23 +106,25 @@ quality:
 	1,2,3
 
 */
-func (v *VideoService) GetVideoPartPath(cid int, quality int, videoType string) (*videoPathResponse, error) {
-	retBody, err := v.doRequest("http://interface.bilibili.com/playurl", map[string]string{
-		"cid":     strconv.Itoa(cid),
-		"quality": strconv.Itoa(quality),
-		"otype":   "json",
-		"type":    videoType,
-	})
-	if err != nil {
-		return nil, err
-	}
+func (v *VideoService) GetVideoPartPath(cid int, quality int) (*videoPathResponse, error) {
+	query, sign := EncodeSign(map[string]string{
+		"cid":            strconv.Itoa(cid),
+		"from":           "miniplay",
+		"player":         "1",
+		"otype":          "json",
+		"quality":        strconv.Itoa(quality),
+		"appkey":         "f3bb208b3d081dc8",
+	}, "1c15888dc316e05a15fdd0a02ed6584f")
+
+	url := "http://interface.bilibili.com/playurl?&" + query + "&sign=" + sign
+
+	fmt.Println(url)
+
+	retBody, err := v.Client.Get(url)
+
 	var ret videoPathResponse
 
 	json.Unmarshal(retBody, &ret)
 
-	if strings.EqualFold(ret.result, "suee") {
-		return nil, &ApiError{Msg: "api return error..."}
-	}
-
-	return &ret, nil
+	return &ret, err
 }

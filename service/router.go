@@ -58,7 +58,6 @@ func ConformRoute(app *BiliBiliApplication) {
 	app.Router.GET("/video/:cid", func(c *gin.Context) {
 		cid := c.Param("cid")
 		quality := c.DefaultQuery("quality", "1")
-		vType := c.DefaultQuery("type", "mp4")
 		cidNum, err := strconv.Atoi(cid)
 		if err != nil {
 			c.JSON(400, MakeFailedJsonMap("PARAM ERROR", err.Error()))
@@ -68,7 +67,7 @@ func ConformRoute(app *BiliBiliApplication) {
 		if err != nil {
 			qualityNum = 1
 		}
-		list, err := app.Client.Video.GetVideoPartPath(cidNum, qualityNum, vType)
+		list, err := app.Client.Video.GetVideoPartPath(cidNum, qualityNum)
 		if err != nil {
 			c.JSON(404, MakeFailedJsonMap("VIDEO_NOT_FOUND", err.Error()))
 			return

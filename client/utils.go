@@ -24,7 +24,7 @@ func Md5(formal string) string {
 }
 
 const (
-	HTTP_TIMEOUT = 2
+	HTTP_TIMEOUT     = 2
 	HTTP_BUFFER_SIZE = 2 * 1024
 )
 
