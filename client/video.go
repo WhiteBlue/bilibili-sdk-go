@@ -3,7 +3,6 @@ package client
 import (
 	"encoding/json"
 	"strconv"
-	"fmt"
 )
 
 type videoElement struct {
@@ -118,8 +117,6 @@ func (v *VideoService) GetVideoPartPath(cid int, quality int) (*videoPathRespons
 	}, "1c15888dc316e05a15fdd0a02ed6584f")
 
 	url := "http://interface.bilibili.com/playurl?&" + query + "&sign=" + sign
-
-	fmt.Println(url)
 
 	retBody, err := v.Client.Get(url)
 
