@@ -112,6 +112,7 @@ func (v *VideoService) GetVideoPartPath(cid int, quality int) (*videoPathRespons
 		"from":           "miniplay",
 		"player":         "1",
 		"otype":          "json",
+		"type":           "mp4",
 		"quality":        strconv.Itoa(quality),
 		"appkey":         "f3bb208b3d081dc8",
 	}, "1c15888dc316e05a15fdd0a02ed6584f")
